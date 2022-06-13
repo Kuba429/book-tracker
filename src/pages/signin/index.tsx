@@ -1,15 +1,25 @@
+import { useRouter } from "next/router";
 import { FormEvent, useRef } from "react";
 import { supabaseClient } from "../../utils/supabaseClient";
 
 export default function SignIn() {
+    const router = useRouter();
     const handleSubmit = async (e: FormEvent) => {
         e.preventDefault();
         const formData = new FormData(e.target as HTMLFormElement);
-        const res = await supabaseClient.auth.signIn({
-            email: formData.get("email") as string,
-            password: formData.get("password") as string,
-        });
-        console.log(res);
+        try {
+            const res = await supabaseClient.auth.signIn({
+                email: formData.get("email") as string,
+                password: formData.get("password") as string,
+            });
+            if (res.error?.message) {
+                alert(res.error.message);
+                throw res.error;
+            }
+            router.push("/");
+        } catch (error) {
+            console.log(error);
+        }
         return;
     };
     return (
