@@ -26,7 +26,7 @@ export default function SignIn() {
         <div>
             <form
                 onSubmit={handleSubmit}
-                className="flex flex-col w-96 rounded border border-gray-300 p-4 mx-auto my-2"
+                className="flex flex-col gap-2 w-96 rounded border border-gray-300 p-4 mx-auto my-2"
             >
                 <input placeholder="email" type="text" name="email" />
                 <input placeholder="password" type="password" name="password" />
