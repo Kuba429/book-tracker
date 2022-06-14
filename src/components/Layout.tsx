@@ -1,25 +1,27 @@
 import { useRouter } from "next/router";
 import { ScriptProps } from "next/script";
-import { useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { supabaseClient } from "../utils/supabaseClient";
+import { UserContext } from "./ContextWrapper";
 import Navbar from "./Navbar";
 
 export default function Layout({ children }: ScriptProps) {
     const Router = useRouter();
-    const [userMail, setUserMail] = useState("");
-    const getuserMail = async () => {
+    const context = useContext(UserContext);
+    const getUserData = async () => {
         const user = await supabaseClient.auth.user();
         if (!user) {
             Router.push("/signin");
+            return;
         }
-        setUserMail(user?.email!);
+        context?.setUserData({ email: user?.email!, id: user?.id! });
     };
     useEffect(() => {
-        getuserMail();
+        getUserData();
     }, []);
     return (
         <main>
-            <Navbar userMail={userMail} />
+            <Navbar userMail={context!.userData.email} />
             {children}
         </main>
     );
