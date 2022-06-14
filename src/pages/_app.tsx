@@ -1,8 +1,13 @@
 import "../global.css";
 import type { AppProps } from "next/app";
+import ContextWrapper from "../components/ContextWrapper";
 
 function MyApp({ Component, pageProps }: AppProps) {
-    return <Component {...pageProps} />;
+    return (
+        <ContextWrapper>
+            <Component {...pageProps} />
+        </ContextWrapper>
+    );
 }
 
 export default MyApp;
