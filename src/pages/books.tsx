@@ -8,13 +8,8 @@ import { UserContext } from "../components/ContextWrapper";
 export default function Books() {
     const [books, setBooks] = useState<Array<book>>([]);
     const context = useContext(UserContext);
-    const getBooks = async () => {
-        const books: Array<book> = await fetchBooks();
-        setBooks(books);
-    };
-
     useEffect(() => {
-        getBooks();
+        getBooks(setBooks);
     }, []);
     return (
         <Layout>
@@ -33,9 +28,16 @@ export default function Books() {
         </Layout>
     );
 }
-const fetchBooks = async (): Promise<Array<book>> => {
-    const res = await supabaseClient
-        .from("books")
-        .select("id,title,author,pages,language");
-    return res.data as Array<book>;
+// i'm aware that passing setState as a prop outside component may not be the safest way to do this. In this case i don't really see any drawbacks. Other solution would be to create a function inside the component that invokes the function below and sets the state to it's result.
+const getBooks = async (setBooks: any) => {
+    try {
+        const res = await supabaseClient
+            .from("books")
+            .select("id,title,author,pages,language");
+
+        if (res.error) throw new Error(res.error.message);
+        setBooks(res.data!);
+    } catch (error) {
+        console.log(error);
+    }
 };
