@@ -10,12 +10,13 @@ const Book: React.FC<{ book: bookInterface; userId: string }> = ({
     const [coverUrl, setCoverUrl] = useState("");
     useEffect(() => {
         // fetching book cover url; falling back to the default one, fetched ahead of time to avoid unnecessary requests
-        if (book.coverPath == "default" || !book.coverPath) {
+        if (book.cover_path == "default" || !book.cover_path) {
+            console.log(book.cover_path);
             setCoverUrl(defaultCover!);
         } else {
             const data = supabaseClient.storage
                 .from("covers")
-                .getPublicUrl(book.coverPath).data?.publicURL;
+                .getPublicUrl(book.cover_path).data?.publicURL;
             setCoverUrl(data || defaultCover!); // fall back to default cover if needed
         }
     }, []);
