@@ -4,6 +4,7 @@ export interface book {
     author: string;
     pages: number;
     language: string;
+    coverPath: string;
 }
 export interface userDataInterface {
     id: string;

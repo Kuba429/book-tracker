@@ -14,11 +14,13 @@
     "@fortawesome/free-solid-svg-icons": "^6.1.1",
     "@fortawesome/react-fontawesome": "^0.1.18",
     "@supabase/supabase-js": "^1.35.3",
+    "compress.js": "^1.2.2",
     "next": "12.1.6",
     "react": "18.1.0",
     "react-dom": "18.1.0"
   },
   "devDependencies": {
+    "@types/compress.js": "^1.1.1",
     "@types/node": "17.0.42",
     "@types/react": "18.0.12",
     "@types/react-dom": "18.0.5",

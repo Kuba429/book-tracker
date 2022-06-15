@@ -5,11 +5,11 @@ import {
     useEffect,
     useState,
 } from "react";
-import Layout from "../components/Layout";
-import { supabaseClient } from "../utils/supabaseClient";
-import { book } from "../interfaces";
-import Book from "../components/Book";
-import { UserContext } from "../components/ContextWrapper";
+import Layout from "../../components/Layout";
+import { supabaseClient } from "../../utils/supabaseClient";
+import { book } from "../../interfaces";
+import Book from "../../components/Book";
+import { UserContext } from "../../components/ContextWrapper";
 
 export default function Books() {
     const [books, setBooks] = useState<Array<book>>([]);

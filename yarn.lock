@@ -224,6 +224,11 @@
     "@supabase/realtime-js" "^1.7.2"
     "@supabase/storage-js" "^1.7.0"
 
+"@types/compress.js@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@types/compress.js/-/compress.js-1.1.1.tgz#cb8d599e84cad42b2b942bb704b8c32db5e1040e"
+  integrity sha512-6ShoR1Qu7jyD/Q2T5m6b+rt/iu/4WvMx+UD6QHFwUE3iVlmQgcoEU5Vc+oQvc41XLsCp2QQ4OWWkc0WeL46v/A==
+
 "@types/json5@^0.0.29":
   version "0.0.29"
   resolved "https://registry.yarnpkg.com/@types/json5/-/json5-0.0.29.tgz#ee28707ae94e11d2b827bcbe5270bcea7f3e71ee"
@@ -549,6 +554,13 @@ color-name@^1.1.4, color-name@~1.1.4:
   version "1.1.4"
   resolved "https://registry.yarnpkg.com/color-name/-/color-name-1.1.4.tgz#c2a09a87acbde69543de6f63fa3995c826c536a2"
   integrity sha512-dOy+3AuW3a2wNbZHIuMZpTcgjGuLU/uBL/ubcZF9OXbDo8ff4O8yVp5Bf0efS8uEoYo5q4Fx7dY9OgQGXgAsQA==
+
+compress.js@^1.2.2:
+  version "1.2.2"
+  resolved "https://registry.yarnpkg.com/compress.js/-/compress.js-1.2.2.tgz#96c311d70b4dae991001c73de96a1869499b79d8"
+  integrity sha512-eIsMmzyBtPVDdPtpmPXTRB6uiLjgTXygYl0KCVVp0I/U/++YzZtEkhVTuWH97dzTxKvzAcZMFwYUHGC09BSUqg==
+  dependencies:
+    regenerator-runtime "^0.13.9"
 
 concat-map@0.0.1:
   version "0.0.1"
@@ -1821,7 +1833,7 @@ readdirp@~3.6.0:
   dependencies:
     picomatch "^2.2.1"
 
-regenerator-runtime@^0.13.4:
+regenerator-runtime@^0.13.4, regenerator-runtime@^0.13.9:
   version "0.13.9"
   resolved "https://registry.yarnpkg.com/regenerator-runtime/-/regenerator-runtime-0.13.9.tgz#8925742a98ffd90814988d7566ad30ca3b263b52"
   integrity sha512-p3VT+cOEgxFsRRA9X4lkI1E+k2/CtnKtU4gcxyaCUreilL/vqI6CdZ3wxVUx3UOUg+gnUOQQcRI7BmSI656MYA==
