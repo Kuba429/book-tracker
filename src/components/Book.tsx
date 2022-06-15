@@ -1,15 +1,29 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { book as bookInterface } from "../interfaces";
+import defaultCover from "../utils/defaultCover";
 import { supabaseClient } from "../utils/supabaseClient";
 
 const Book: React.FC<{ book: bookInterface; userId: string }> = ({
     book,
     userId,
 }) => {
+    const [coverUrl, setCoverUrl] = useState("");
+    useEffect(() => {
+        // fetching book cover url; falling back to the default one, fetched ahead of time to avoid unnecessary requests
+        if (book.coverPath == "default" || !book.coverPath) {
+            setCoverUrl(defaultCover!);
+        } else {
+            const data = supabaseClient.storage
+                .from("covers")
+                .getPublicUrl(book.coverPath).data?.publicURL;
+            setCoverUrl(data || defaultCover!); // fall back to default cover if needed
+        }
+    }, []);
     return (
         <div key={book.id} className="bg-slate-300 m-2 p-1 rounded">
             <p>{book.author}</p>
             <p>{book.title}</p>
+            <img src={coverUrl} width="50" height="50" alt="" />
             <button
                 onClick={() => addBook(book.id, userId!)}
                 className="rounded bg-slate-400 px-2 cursor-pointer hover:bg-slate-500 transition-colors"
