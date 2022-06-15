@@ -39,7 +39,7 @@ const getBooks = async (setBooks: Dispatch<SetStateAction<Array<book>>>) => {
     try {
         const res = await supabaseClient
             .from("books")
-            .select("id,title,author,pages,language");
+            .select("id,title,author,pages,language,cover_path");
 
         if (res.error) throw new Error(res.error.message);
         setBooks(res.data);

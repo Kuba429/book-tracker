@@ -11,7 +11,6 @@ const Book: React.FC<{ book: bookInterface; userId: string }> = ({
     useEffect(() => {
         // fetching book cover url; falling back to the default one, fetched ahead of time to avoid unnecessary requests
         if (book.cover_path == "default" || !book.cover_path) {
-            console.log(book.cover_path);
             setCoverUrl(defaultCover!);
         } else {
             const data = supabaseClient.storage
