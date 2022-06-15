@@ -11,7 +11,7 @@ import Layout from "../components/Layout";
 import { book } from "../interfaces";
 import { supabaseClient } from "../utils/supabaseClient";
 
-export default function Collection() {
+export default function List() {
     const context = useContext(UserContext);
     const [books, setBooks] = useState<Array<book>>([]);
     useEffect(() => {
