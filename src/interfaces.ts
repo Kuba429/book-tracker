@@ -6,6 +6,12 @@ export interface book {
     language: string;
     cover_path: string;
 }
+export interface readBook {
+    id: string;
+    book_id: string;
+    lastReadPage: number;
+    books: book; // books not book because that's how it's called in db
+}
 export interface userDataInterface {
     id: string;
     email: string;
