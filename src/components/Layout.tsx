@@ -19,10 +19,15 @@ export default function Layout({ children }: ScriptProps) {
     useEffect(() => {
         getUserData();
     }, []);
+
     return (
-        <main>
-            <Navbar userMail={context!.userData.email} />
-            {children}
-        </main>
+        <>
+            <div className="flex h-screen overflow-y-hidden">
+                <Navbar userMail={context!.userData.email} />
+                <main className="w-11/12 mx-auto overflow-y-auto">
+                    {children}
+                </main>
+            </div>
+        </>
     );
 }

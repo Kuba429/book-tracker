@@ -1,5 +1,6 @@
 import { faAngleDown } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useState } from "react";
 import { supabaseClient } from "../utils/supabaseClient";
@@ -11,20 +12,19 @@ const Navbar: React.FC<{ userMail: string }> = ({ userMail }) => {
         router.push("/signin");
     };
     return (
-        <div className="w-full bg-slate-800 p-4 text-white flex justify-between">
-            <span>Booktracker</span>
-            <span className="relative cursor-pointer group">
-                {userMail}
-                <FontAwesomeIcon icon={faAngleDown} className="ml-1" />
-                <span
-                    onClick={handleSignOut}
-                    className={
-                        "absolute right-0 top-0 bg-slate-700 translate-y-full text-white mx-1 rounded p-1 text-sm cursor-pointer invisible delay-500 group-hover:delay-75 group-hover:visible"
-                    }
-                >
-                    Sign Out
-                </span>
-            </span>
+        <div className="w-80 h-full overflow-y-auto text-white bg-slate-800 flex flex-col items-start gap-4 justify-start py-10 px-10">
+            <h1 className="text-3xl">Book Tracker</h1>
+            <Link href={"/"}>
+                <a>Home</a>
+            </Link>
+            <Link href={"/books"}>
+                <a>Books</a>
+            </Link>
+            <Link href="/mylist">
+                <a>My list</a>
+            </Link>
+            <span>{userMail}</span>
+            <button onClick={handleSignOut}>Sing out</button>
         </div>
     );
 };
