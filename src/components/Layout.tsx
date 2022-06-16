@@ -22,7 +22,7 @@ export default function Layout({ children }: ScriptProps) {
 
     return (
         <>
-            <div className="flex h-screen overflow-y-hidden">
+            <div className={`md:flex h-screen overflow-y-hidden`}>
                 <Navbar userMail={context!.userData.email} />
                 <main className="w-11/12 mx-auto overflow-y-auto">
                     {children}
