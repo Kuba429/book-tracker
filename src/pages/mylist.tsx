@@ -5,11 +5,11 @@ import Layout from "../components/Layout";
 import { bookRead } from "../interfaces";
 import { supabaseClient } from "../utils/supabaseClient";
 
-enum BooksKind {
+export enum BooksKind {
     UPDATE_PROGRESS = "UPDATE_PROGRESS",
     SET_BOOKS = "SET_BOOKS",
 }
-interface BooksAction {
+export interface BooksAction {
     type: BooksKind;
     payload: {
         id?: string;
@@ -25,7 +25,15 @@ const booksReducer = (
         case BooksKind.SET_BOOKS:
             return action.payload.books!;
         case BooksKind.UPDATE_PROGRESS:
-            return state;
+            const copy = [...state]; // i'm not sure if changing the state itself before returning it is ok so just to be safe im copying it
+            let index = 0;
+            state.find((x, i) => {
+                // find index of book to change
+                index = i;
+                return x.id == action.payload.id;
+            });
+            copy[index].last_read_page = action.payload.lastReadPage!;
+            return copy;
     }
 };
 export default function List() {
@@ -41,8 +49,8 @@ export default function List() {
                 books.map((b) => {
                     return (
                         <BookRead
-                            userId={context?.userData.id!}
                             bookRead={b}
+                            dispatchBooks={dispatchBooks}
                             key={b.id}
                         />
                     );
