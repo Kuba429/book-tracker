@@ -1,21 +1,38 @@
-import {
-    Dispatch,
-    SetStateAction,
-    useContext,
-    useEffect,
-    useState,
-} from "react";
+import { Dispatch, useContext, useEffect, useReducer } from "react";
 import BookRead from "../components/BookRead";
 import { UserContext } from "../components/ContextWrapper";
 import Layout from "../components/Layout";
 import { bookRead } from "../interfaces";
 import { supabaseClient } from "../utils/supabaseClient";
 
+enum BooksKind {
+    UPDATE_PROGRESS = "UPDATE_PROGRESS",
+    SET_BOOKS = "SET_BOOKS",
+}
+interface BooksAction {
+    type: BooksKind;
+    payload: {
+        id?: string;
+        lastReadPage?: number;
+        books?: Array<bookRead>;
+    };
+}
+const booksReducer = (
+    state: Array<bookRead>,
+    action: BooksAction
+): Array<bookRead> => {
+    switch (action.type) {
+        case BooksKind.SET_BOOKS:
+            return action.payload.books!;
+        case BooksKind.UPDATE_PROGRESS:
+            return state;
+    }
+};
 export default function List() {
     const context = useContext(UserContext);
-    const [books, setBooks] = useState<Array<bookRead>>([]);
+    const [books, dispatchBooks] = useReducer(booksReducer, []);
     useEffect(() => {
-        getbookReads(context?.userData.id!, setBooks);
+        getbooksRead(dispatchBooks);
     }, []);
     return (
         <Layout>
@@ -34,9 +51,8 @@ export default function List() {
     );
 }
 
-const getbookReads = async (
-    userId: string,
-    setBooks: Dispatch<SetStateAction<Array<bookRead>>>
+const getbooksRead = async (
+    dispatchBooks: Dispatch<BooksAction>
 ): Promise<void> => {
     // get ids of read books
     let ids: Array<string> = [];
@@ -50,7 +66,10 @@ const getbookReads = async (
                 )
             `);
         if (res.error) throw new Error(res.error.message);
-        setBooks(res.data);
+        dispatchBooks({
+            type: BooksKind.SET_BOOKS,
+            payload: { books: res.data },
+        });
     } catch (error) {
         console.log(error);
     }
