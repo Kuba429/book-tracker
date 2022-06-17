@@ -8,7 +8,7 @@ export interface book {
 }
 export interface bookRead {
     id: string;
-    lastReadPage: number;
+    last_read_page: number;
     books: book; // books not book because that's how it's called in db
 }
 export interface userDataInterface {
