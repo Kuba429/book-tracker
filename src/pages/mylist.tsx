@@ -1,44 +1,17 @@
-import { Dispatch, useContext, useEffect, useReducer } from "react";
+import { Dispatch, useContext, useEffect } from "react";
 import BookRead from "../components/BookRead";
 import { UserContext } from "../components/ContextWrapper";
 import Layout from "../components/Layout";
-import { bookRead } from "../interfaces";
+import {
+    ReadBooksAction,
+    ReadBooksKind,
+    useReadBooksReducer,
+} from "../utils/hooks/useReadBooksReducer";
 import { supabaseClient } from "../utils/supabaseClient";
 
-export enum BooksKind {
-    UPDATE_PROGRESS = "UPDATE_PROGRESS",
-    SET_BOOKS = "SET_BOOKS",
-}
-export interface BooksAction {
-    type: BooksKind;
-    payload: {
-        id?: string;
-        lastReadPage?: number;
-        books?: Array<bookRead>;
-    };
-}
-const booksReducer = (
-    state: Array<bookRead>,
-    action: BooksAction
-): Array<bookRead> => {
-    switch (action.type) {
-        case BooksKind.SET_BOOKS:
-            return action.payload.books!;
-        case BooksKind.UPDATE_PROGRESS:
-            const copy = [...state]; // i'm not sure if changing the state itself before returning it is ok so just to be safe im copying it
-            let index = 0;
-            state.find((x, i) => {
-                // find index of book to change
-                index = i;
-                return x.id == action.payload.id;
-            });
-            copy[index].last_read_page = action.payload.lastReadPage!;
-            return copy;
-    }
-};
 export default function List() {
     const context = useContext(UserContext);
-    const [books, dispatchBooks] = useReducer(booksReducer, []);
+    const [books, dispatchBooks] = useReadBooksReducer();
     useEffect(() => {
         getbooksRead(dispatchBooks);
     }, []);
@@ -60,7 +33,7 @@ export default function List() {
 }
 
 const getbooksRead = async (
-    dispatchBooks: Dispatch<BooksAction>
+    dispatchBooks: Dispatch<ReadBooksAction>
 ): Promise<void> => {
     // get ids of read books
     let ids: Array<string> = [];
@@ -75,7 +48,7 @@ const getbooksRead = async (
             `);
         if (res.error) throw new Error(res.error.message);
         dispatchBooks({
-            type: BooksKind.SET_BOOKS,
+            type: ReadBooksKind.SET_BOOKS,
             payload: { books: res.data },
         });
     } catch (error) {
