@@ -1,13 +1,14 @@
-import React, { Dispatch, useEffect, useState } from "react";
-import { bookRead as bookReadInterface } from "../interfaces";
-import { BooksAction, BooksKind } from "../pages/mylist";
-import defaultCover from "../utils/defaultCover";
-import { supabaseClient } from "../utils/supabaseClient";
+import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { bookRead, bookRead as bookReadInterface } from "../../interfaces";
+import defaultCover from "../../utils/defaultCover";
+import { ReadBooksAction } from "../../utils/hooks/useReadBooksReducer";
+import { supabaseClient } from "../../utils/supabaseClient";
 
 const BookRead: React.FC<{
     bookRead: bookReadInterface;
-    dispatchBooks: Dispatch<BooksAction>;
-}> = ({ bookRead, dispatchBooks }) => {
+    dispatchBooks: Dispatch<ReadBooksAction>;
+    setModalState: Dispatch<SetStateAction<boolean | bookRead>>;
+}> = ({ bookRead, dispatchBooks, setModalState }) => {
     const [coverUrl, setCoverUrl] = useState<string>("");
     useEffect(() => {
         // fetching book cover url; falling back to the default one, fetched ahead of time to avoid unnecessary requests
@@ -32,7 +33,7 @@ const BookRead: React.FC<{
                 last read page: {bookRead.last_read_page}
                 <button
                     onClick={() => {
-                        updateProgress(36, bookRead.id, dispatchBooks);
+                        setModalState(bookRead);
                     }}
                 >
                     Update
@@ -42,20 +43,3 @@ const BookRead: React.FC<{
     );
 };
 export default BookRead;
-
-const updateProgress = async (
-    newLastPageRead: number,
-    bookReadId: string,
-    dispatchBooks: Dispatch<BooksAction>
-) => {
-    const res = await supabaseClient
-        .from("books_read")
-        .update({ last_read_page: newLastPageRead })
-        .eq("id", bookReadId);
-    console.log(res);
-    dispatchBooks({
-        type: BooksKind.UPDATE_PROGRESS,
-        payload: { id: bookReadId, lastReadPage: newLastPageRead },
-    });
-    return;
-};

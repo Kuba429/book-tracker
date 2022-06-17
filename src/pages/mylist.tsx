@@ -1,7 +1,8 @@
-import { Dispatch, useContext, useEffect } from "react";
+import { Dispatch, useEffect, useState } from "react";
 import BookRead from "../components/BookRead";
-import { UserContext } from "../components/ContextWrapper";
+import UpdateProgressModal from "../components/BookRead/UpdateProgressModal";
 import Layout from "../components/Layout";
+import { bookRead } from "../interfaces";
 import {
     ReadBooksAction,
     ReadBooksKind,
@@ -10,8 +11,8 @@ import {
 import { supabaseClient } from "../utils/supabaseClient";
 
 export default function List() {
-    const context = useContext(UserContext);
     const [books, dispatchBooks] = useReadBooksReducer();
+    const [modalState, setModalState] = useState<boolean | bookRead>(false);
     useEffect(() => {
         getbooksRead(dispatchBooks);
     }, []);
@@ -24,10 +25,14 @@ export default function List() {
                         <BookRead
                             bookRead={b}
                             dispatchBooks={dispatchBooks}
+                            setModalState={setModalState}
                             key={b.id}
                         />
                     );
                 })}
+            {modalState && (
+                <UpdateProgressModal setModalState={setModalState} />
+            )}
         </Layout>
     );
 }
