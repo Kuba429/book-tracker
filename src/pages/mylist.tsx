@@ -31,7 +31,11 @@ export default function List() {
                     );
                 })}
             {modalState && (
-                <UpdateProgressModal setModalState={setModalState} />
+                <UpdateProgressModal
+                    modalState={modalState as bookRead} // at this point modalState is bound to not be false (therefore not a bool since true is never assigned to it)
+                    setModalState={setModalState}
+                    dispatchBooks={dispatchBooks}
+                />
             )}
         </Layout>
     );

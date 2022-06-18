@@ -22,13 +22,16 @@ const booksReducer = (
             return action.payload.books!;
         case ReadBooksKind.UPDATE_PROGRESS:
             const copy = [...state]; // i'm not sure if changing the state itself before returning it is ok so just to be safe im copying it
+            let newLastPageRead = action.payload.lastReadPage!;
             let index = 0;
             state.find((x, i) => {
                 // find index of book to change
                 index = i;
                 return x.id == action.payload.id;
             });
-            copy[index].last_read_page = action.payload.lastReadPage!;
+            if (newLastPageRead > copy[index].books.pages)
+                newLastPageRead = copy[index].books.pages; // cap last read page
+            copy[index].last_read_page = newLastPageRead;
             return copy;
     }
 };
