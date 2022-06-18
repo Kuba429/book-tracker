@@ -7,7 +7,7 @@ const Book: React.FC<{ book: bookInterface; userId: string }> = ({
     book,
     userId,
 }) => {
-    const [coverUrl, setCoverUrl] = useState<string>("");
+    const [coverUrl, setCoverUrl] = useState("");
     useEffect(() => {
         // fetching book cover url; falling back to the default one, fetched ahead of time to avoid unnecessary requests
         if (book.cover_path == "default" || !book.cover_path) {

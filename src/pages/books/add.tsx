@@ -2,8 +2,8 @@ import { FormEvent } from "react";
 import Layout from "../../components/Layout";
 import Compress from "compress.js";
 import { supabaseClient } from "../../utils/supabaseClient";
-import path from "path";
 import { v4 } from "uuid";
+
 const Add = () => {
     return (
         <Layout>

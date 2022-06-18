@@ -24,7 +24,6 @@ export default function List() {
                     return (
                         <BookRead
                             bookRead={b}
-                            dispatchBooks={dispatchBooks}
                             setModalState={setModalState}
                             key={b.id}
                         />

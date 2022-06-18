@@ -1,14 +1,12 @@
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { bookRead, bookRead as bookReadInterface } from "../../interfaces";
 import defaultCover from "../../utils/defaultCover";
-import { ReadBooksAction } from "../../utils/hooks/useReadBooksReducer";
 import { supabaseClient } from "../../utils/supabaseClient";
 
 const BookRead: React.FC<{
     bookRead: bookReadInterface;
-    dispatchBooks: Dispatch<ReadBooksAction>;
     setModalState: Dispatch<SetStateAction<boolean | bookRead>>;
-}> = ({ bookRead, dispatchBooks, setModalState }) => {
+}> = ({ bookRead, setModalState }) => {
     const [coverUrl, setCoverUrl] = useState<string>("");
     useEffect(() => {
         // fetching book cover url; falling back to the default one, fetched ahead of time to avoid unnecessary requests
