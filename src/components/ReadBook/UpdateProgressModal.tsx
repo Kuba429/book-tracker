@@ -1,5 +1,5 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
-import { bookRead } from "../../interfaces";
+import { readBook } from "../../interfaces";
 import {
     ReadBooksAction,
     ReadBooksKind,
@@ -7,8 +7,8 @@ import {
 import { supabaseClient } from "../../utils/supabaseClient";
 
 const UpdateProgressModal: React.FC<{
-    setModalState: Dispatch<SetStateAction<bookRead | boolean>>;
-    modalState: bookRead;
+    setModalState: Dispatch<SetStateAction<readBook | boolean>>;
+    modalState: readBook;
     dispatchBooks: Dispatch<ReadBooksAction>;
 }> = ({ setModalState, modalState, dispatchBooks }) => {
     const [newPage, setNewPage] = useState(modalState.last_read_page);
@@ -61,17 +61,17 @@ const UpdateProgressModal: React.FC<{
 export default UpdateProgressModal;
 const updateProgress = async (
     newLastPageRead: number,
-    bookReadId: string,
+    readBookId: string,
     dispatchBooks: Dispatch<ReadBooksAction>
 ) => {
     const res = await supabaseClient
-        .from("books_read")
+        .from("read_books")
         .update({ last_read_page: newLastPageRead })
-        .eq("id", bookReadId);
+        .eq("id", readBookId);
     console.log(res);
     dispatchBooks({
         type: ReadBooksKind.UPDATE_PROGRESS,
-        payload: { id: bookReadId, lastReadPage: newLastPageRead },
+        payload: { id: readBookId, lastReadPage: newLastPageRead },
     });
     return;
 };

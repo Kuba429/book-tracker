@@ -1,5 +1,5 @@
 import { useReducer } from "react";
-import { bookRead } from "../../interfaces";
+import { readBook } from "../../interfaces";
 
 export enum ReadBooksKind {
     UPDATE_PROGRESS = "UPDATE_PROGRESS",
@@ -10,13 +10,13 @@ export interface ReadBooksAction {
     payload: {
         id?: string;
         lastReadPage?: number;
-        books?: Array<bookRead>;
+        books?: Array<readBook>;
     };
 }
 const booksReducer = (
-    state: Array<bookRead>,
+    state: Array<readBook>,
     action: ReadBooksAction
-): Array<bookRead> => {
+): Array<readBook> => {
     switch (action.type) {
         case ReadBooksKind.SET_BOOKS:
             return action.payload.books!;

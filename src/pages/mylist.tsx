@@ -1,8 +1,8 @@
 import { Dispatch, useEffect, useState } from "react";
-import BookRead from "../components/BookRead";
-import UpdateProgressModal from "../components/BookRead/UpdateProgressModal";
+import ReadBook from "../components/ReadBook";
+import UpdateProgressModal from "../components/ReadBook/UpdateProgressModal";
 import Layout from "../components/Layout";
-import { bookRead } from "../interfaces";
+import { readBook } from "../interfaces";
 import {
     ReadBooksAction,
     ReadBooksKind,
@@ -12,7 +12,7 @@ import { supabaseClient } from "../utils/supabaseClient";
 
 export default function List() {
     const [books, dispatchBooks] = useReadBooksReducer();
-    const [modalState, setModalState] = useState<boolean | bookRead>(false);
+    const [modalState, setModalState] = useState<boolean | readBook>(false);
     useEffect(() => {
         getbooksRead(dispatchBooks);
     }, []);
@@ -22,8 +22,8 @@ export default function List() {
             {books.length > 0 &&
                 books.map((b) => {
                     return (
-                        <BookRead
-                            bookRead={b}
+                        <ReadBook
+                            readBook={b}
                             setModalState={setModalState}
                             key={b.id}
                         />
@@ -31,7 +31,7 @@ export default function List() {
                 })}
             {modalState && (
                 <UpdateProgressModal
-                    modalState={modalState as bookRead} // at this point modalState is bound to not be false (therefore not a bool since true is never assigned to it)
+                    modalState={modalState as readBook} // at this point modalState is bound to not be false (therefore not a bool since true is never assigned to it)
                     setModalState={setModalState}
                     dispatchBooks={dispatchBooks}
                 />
@@ -46,8 +46,8 @@ const getbooksRead = async (
     // get ids of read books
     let ids: Array<string> = [];
     try {
-        // no need to filter books_read with userId, supabase policies take care of it
-        const res = await supabaseClient.from("books_read").select(`
+        // no need to filter read_books with userId, supabase policies take care of it
+        const res = await supabaseClient.from("read_books").select(`
                 last_read_page,
                 id,
                 books (

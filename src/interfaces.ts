@@ -6,7 +6,7 @@ export interface book {
     language: string;
     cover_path: string;
 }
-export interface bookRead {
+export interface readBook {
     id: string;
     last_read_page: number;
     books: book; // books not book because that's how it's called in db
