@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .btn {
+        // assumes only 1 child exists
+        @apply text-white rounded transition-all duration-100
+    after:bg-orange-600 after:rounded after:transition-all after:duration-100
+	relative z-10
+    after:absolute after:-z-10
+    after:top-1/4 after:left-0 after:w-full after:h-full
+    
+    hover:first:translate-y-1
+    hover:after:-translate-y-1;
+        span {
+            @apply px-2 py-1
+        bg-orange-400 z-20 transition-all duration-100
+        active:bg-orange-500;
+        }
+    }
+}

@@ -30,11 +30,12 @@ const ReadBook: React.FC<{
             <p>
                 last read page: {readBook.last_read_page}
                 <button
+                    className="btn"
                     onClick={() => {
                         setModalState(readBook);
                     }}
                 >
-                    Update
+                    <span>Update</span>
                 </button>
             </p>
         </div>

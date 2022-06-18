@@ -1,4 +1,4 @@
-import "../global.css";
+import "../global.scss";
 import type { AppProps } from "next/app";
 import ContextWrapper from "../components/ContextWrapper";
 
