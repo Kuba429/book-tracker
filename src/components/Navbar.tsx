@@ -14,13 +14,13 @@ const Navbar: React.FC<{ userMail: string }> = ({ userMail }) => {
         <>
             <div
                 className={`bg-slate-800 text-white py-3
-                md:hidden`}
+                md:hidden sticky top-0`}
             >
                 <button onClick={() => setIsVisible((x) => !x)}>toggle</button>
             </div>
             <div
-                className={`w-80 h-full top-0 overflow-y-auto text-white bg-slate-800 flex flex-col items-start gap-4 justify-start py-10 px-10 transition-all z-20
-                absolute md:static 
+                className={`w-80 h-screen top-0  text-white bg-slate-800 flex flex-col items-start gap-4 justify-start py-10 px-10 transition-all z-20
+                fixed md:sticky
                 ${!isVisible && "-translate-x-full"} 
                 md:translate-x-0
                 `}
@@ -52,7 +52,7 @@ const Navbar: React.FC<{ userMail: string }> = ({ userMail }) => {
                     onClick={() => {
                         setIsVisible((x) => !x);
                     }}
-                    className="bg-black opacity-50 z-10 absolute top-0 w-full h-full"
+                    className="bg-black opacity-50 z-10 fixed top-0 w-full h-full"
                 ></div>
             )}
         </>
