@@ -19,16 +19,19 @@ export default function List() {
     return (
         <Layout>
             <div>collection</div>
-            {books.length > 0 &&
-                books.map((b) => {
-                    return (
-                        <ReadBook
-                            readBook={b}
-                            setModalState={setModalState}
-                            key={b.id}
-                        />
-                    );
-                })}
+            <div className="flex flex-wrap">
+                {books.length > 0 &&
+                    books.map((b) => {
+                        return (
+                            <ReadBook
+                                readBook={b}
+                                setModalState={setModalState}
+                                key={b.id}
+                            />
+                        );
+                    })}
+            </div>
+
             {modalState && (
                 <UpdateProgressModal
                     modalState={modalState as readBook} // at this point modalState is bound to not be false (therefore not a bool since true is never assigned to it)

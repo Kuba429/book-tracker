@@ -23,12 +23,15 @@ const ReadBook: React.FC<{
         }
     }, []);
     return (
-        <div key={readBook.books.id} className="bg-slate-300 m-2 p-1 rounded">
-            <p>{readBook.books.author}</p>
-            <p>{readBook.books.title}</p>
-            <img src={coverUrl} width="50" height="50" alt="" />
-            <p>
-                last read page: {readBook.last_read_page}
+        <div
+            key={readBook.books.id}
+            className=" bg-slate-300 m-2 p-1 rounded flex gap-1"
+        >
+            <img className="object-none" src={coverUrl} alt="Book cover" />
+            <div className="w-48">
+                <p className="truncate">{readBook.books.title}</p>
+                <p className="truncate">{readBook.books.author}</p>
+                <p>last read page: {readBook.last_read_page}</p>
                 <button
                     className="btn"
                     onClick={() => {
@@ -37,7 +40,7 @@ const ReadBook: React.FC<{
                 >
                     <span>Update</span>
                 </button>
-            </p>
+            </div>
         </div>
     );
 };
