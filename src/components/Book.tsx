@@ -20,16 +20,19 @@ const Book: React.FC<{ book: bookInterface; userId: string }> = ({
         }
     }, []);
     return (
-        <div key={book.id} className="bg-slate-300 m-2 p-1 rounded">
-            <p>{book.author}</p>
-            <p>{book.title}</p>
-            <img src={coverUrl} width="50" height="50" alt="" />
-            <button
-                onClick={() => addBook(book.id, userId!)}
-                className="rounded bg-slate-400 px-2 cursor-pointer hover:bg-slate-500 transition-colors"
-            >
-                add
-            </button>
+        <div key={book.id} className="book-card">
+            <img className="object-none" src={coverUrl} alt="Book cover" />
+            <div className="w-48 flex flex-col justify-between">
+                <p className="text-white">{book.title}</p>
+                <p>{book.author}</p>
+                <p>{book.pages} pages</p>
+                <button
+                    onClick={() => addBook(book.id, userId!)}
+                    className="btn self-start mb-2"
+                >
+                    <span>Add</span>
+                </button>
+            </div>
         </div>
     );
 };

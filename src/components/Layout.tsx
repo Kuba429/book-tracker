@@ -22,7 +22,7 @@ export default function Layout({ children }: ScriptProps) {
 
     return (
         <>
-            <div className={`md:flex`}>
+            <div className={`md:flex bg-dark-800`}>
                 <Navbar userMail={context!.userData.email} />
                 <main className="w-11/12 mx-auto">{children}</main>
             </div>

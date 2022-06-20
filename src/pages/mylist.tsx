@@ -18,7 +18,7 @@ export default function List() {
     }, []);
     return (
         <Layout>
-            <div>collection</div>
+            <h1 className="text-white text-4xl">My List</h1>
             <div className="flex flex-wrap">
                 {books.length > 0 &&
                     books.map((b) => {

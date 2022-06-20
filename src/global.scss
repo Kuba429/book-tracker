@@ -3,6 +3,12 @@
 @tailwind utilities;
 
 @layer components {
+    .book-card {
+        @apply bg-dark-700 text-dark-200 m-2 p-1 rounded flex gap-1;
+        p {
+            @apply truncate;
+        }
+    }
     .btn {
         // assumes only 1 child exists
         @apply text-white rounded transition-all duration-100

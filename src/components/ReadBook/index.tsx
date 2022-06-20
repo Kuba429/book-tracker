@@ -23,17 +23,14 @@ const ReadBook: React.FC<{
         }
     }, []);
     return (
-        <div
-            key={readBook.books.id}
-            className=" bg-slate-300 m-2 p-1 rounded flex gap-1"
-        >
+        <div key={readBook.books.id} className="book-card">
             <img className="object-none" src={coverUrl} alt="Book cover" />
-            <div className="w-48">
-                <p className="truncate">{readBook.books.title}</p>
-                <p className="truncate">{readBook.books.author}</p>
+            <div className="w-48 flex flex-col justify-between">
+                <p className="text-white">{readBook.books.title}</p>
+                <p>{readBook.books.author}</p>
                 <p>last read page: {readBook.last_read_page}</p>
                 <button
-                    className="btn"
+                    className="btn self-start mb-2"
                     onClick={() => {
                         setModalState(readBook);
                     }}

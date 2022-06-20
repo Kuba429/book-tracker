@@ -19,8 +19,8 @@ export default function Books() {
     }, []);
     return (
         <Layout>
-            <div>books</div>
-            <div>
+            <h1 className="text-white text-4xl">Books</h1>
+            <div className="flex flex-wrap">
                 {books.map((b) => {
                     return (
                         <Book

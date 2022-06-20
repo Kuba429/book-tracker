@@ -13,13 +13,13 @@ const Navbar: React.FC<{ userMail: string }> = ({ userMail }) => {
     return (
         <>
             <div
-                className={`bg-slate-800 text-white py-3
+                className={`bg-dark-800 border-b border-dark-600 text-white py-3
                 md:hidden sticky top-0`}
             >
                 <button onClick={() => setIsVisible((x) => !x)}>toggle</button>
             </div>
             <div
-                className={`w-80 h-screen top-0  text-white bg-slate-800 flex flex-col items-start gap-4 justify-start py-10 px-10 transition-all z-20
+                className={`w-80 h-screen top-0  text-white bg-dark-800 border-r border-dark-600 flex flex-col items-start gap-4 justify-start py-10 px-10 transition-all z-20
                 fixed md:sticky
                 ${!isVisible && "-translate-x-full"} 
                 md:translate-x-0
