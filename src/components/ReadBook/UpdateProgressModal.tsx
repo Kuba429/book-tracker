@@ -18,7 +18,7 @@ const UpdateProgressModal: React.FC<{
             {/* Modal itself can't be a child of element below because click on modal would trigger event listener and update state */}
             <div
                 onClick={() => setModalState(false)}
-                className="h-full w-full absolute z-30 top-0 left-0 bg-black opacity-50"
+                className="h-full w-full absolute z-30 top-0 left-0 bg-dark-800 opacity-50"
             ></div>
             <div
                 className={`absolute z-40 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 

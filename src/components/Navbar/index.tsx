@@ -6,13 +6,17 @@ const Navbar: React.FC<{ userMail: string }> = ({ userMail }) => {
     return (
         <>
             <div
-                className={`bg-dark-800 border-b border-dark-600 text-white py-3
-                md:hidden sticky top-0`}
+                className={`bg-light-800 border-b border-light-600 text-dark-800
+                dark:bg-dark-800 dark:border-b dark:border-dark-600 dark:text-white
+                py-3 md:hidden sticky top-0`}
             >
                 <button onClick={() => setIsVisible((x) => !x)}>toggle</button>
             </div>
             <div
-                className={`w-80 h-screen top-0  text-dark-200 bg-dark-800 border-r border-dark-600 flex flex-col items-start gap-4 justify-start py-10 px-10 transition-all z-20
+                className={`w-80 h-screen top-0 border-r
+                text-light-200 bg-light-600 border-light-600
+                dark:text-dark-200 dark:bg-dark-800 dark:border-dark-600
+                flex flex-col items-start gap-4 justify-start py-10 px-10 transition-all z-20
                 fixed md:sticky
                 ${!isVisible && "-translate-x-full"} 
                 md:translate-x-0
@@ -34,7 +38,7 @@ const Navbar: React.FC<{ userMail: string }> = ({ userMail }) => {
                     onClick={() => {
                         setIsVisible((x) => !x);
                     }}
-                    className="bg-black opacity-50 z-10 fixed top-0 w-full h-full"
+                    className="bg-dark-800 opacity-50 z-10 fixed top-0 w-full h-full"
                 ></div>
             )}
         </>

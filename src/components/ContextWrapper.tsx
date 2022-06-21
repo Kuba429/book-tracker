@@ -1,5 +1,11 @@
 import { ScriptProps } from "next/script";
-import { createContext, Dispatch, SetStateAction, useState } from "react";
+import {
+    createContext,
+    Dispatch,
+    SetStateAction,
+    useEffect,
+    useState,
+} from "react";
 import useDarkMode, { DarkMode } from "use-dark-mode";
 import { userDataInterface } from "../interfaces";
 
