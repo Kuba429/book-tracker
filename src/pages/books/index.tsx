@@ -20,7 +20,7 @@ export default function Books() {
     return (
         <Layout>
             <h1 className="text-white text-4xl">Books</h1>
-            <div className="flex flex-wrap">
+            <div className="grid lg:grid-cols-3 grid-cols-1 sm:grid-cols-2 gap-2">
                 {books.map((b) => {
                     return (
                         <Book

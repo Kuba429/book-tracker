@@ -19,7 +19,7 @@ export default function List() {
     return (
         <Layout>
             <h1 className="text-white text-4xl">My List</h1>
-            <div className="flex flex-wrap">
+            <div className="grid lg:grid-cols-3 grid-cols-1 sm:grid-cols-2 gap-2">
                 {books.length > 0 &&
                     books.map((b) => {
                         return (
