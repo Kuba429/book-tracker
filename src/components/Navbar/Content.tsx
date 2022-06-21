@@ -14,7 +14,13 @@ const Content: React.FC<{ userMail: string }> = ({ userMail }) => {
             {links.map((l) => {
                 return (
                     <Link href={l.url}>
-                        <a className={`text-dimmed`}>{l.name}</a>
+                        <a
+                            className={`text-dimmed ${
+                                router.pathname == l.url ? "text-white" : "" // highlight link leading to current page
+                            }`}
+                        >
+                            {l.name}
+                        </a>
                     </Link>
                 );
             })}
