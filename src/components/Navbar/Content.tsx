@@ -13,7 +13,7 @@ const Content: React.FC<{ userMail: string }> = ({ userMail }) => {
             <h1 className="text-3xl text-white">Book Tracker</h1>
             {links.map((l) => {
                 return (
-                    <Link href={l.url}>
+                    <Link key={l.url} href={l.url}>
                         <a
                             className={`text-dimmed ${
                                 router.pathname == l.url ? "text-white" : "" // highlight link leading to current page
