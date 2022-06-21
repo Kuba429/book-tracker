@@ -7,7 +7,7 @@ const ReadBook: React.FC<{
     readBook: readBookInterface;
     setModalState: Dispatch<SetStateAction<boolean | readBook>>;
 }> = ({ readBook, setModalState }) => {
-    const [coverUrl, setCoverUrl] = useState<string>("");
+    const [coverUrl, setCoverUrl] = useState("");
     useEffect(() => {
         // fetching book cover url; falling back to the default one, fetched ahead of time to avoid unnecessary requests
         if (
@@ -24,13 +24,12 @@ const ReadBook: React.FC<{
     }, []);
     return (
         <div key={readBook.books.id} className="book-card">
-            <img className="object-none" src={coverUrl} alt="Book cover" />
-            <div className="w-48 flex flex-col justify-between">
-                <p className="text-white">{readBook.books.title}</p>
+            <img src={coverUrl} alt="Book cover" />
+            <div>
+                <p>{readBook.books.title}</p>
                 <p>{readBook.books.author}</p>
                 <p>last read page: {readBook.last_read_page}</p>
                 <button
-                    className="btn self-start mb-2"
                     onClick={() => {
                         setModalState(readBook);
                     }}
