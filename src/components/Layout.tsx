@@ -3,7 +3,7 @@ import { ScriptProps } from "next/script";
 import { useContext, useEffect } from "react";
 import { supabaseClient } from "../utils/supabaseClient";
 import { UserContext } from "./ContextWrapper";
-import Navbar from "./Navbar";
+import Navbar from "./Navbar/index";
 
 export default function Layout({ children }: ScriptProps) {
     const Router = useRouter();
