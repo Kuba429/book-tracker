@@ -13,7 +13,7 @@ const Navbar: React.FC<{ userMail: string }> = ({ userMail }) => {
                 <button onClick={() => setIsVisible((x) => !x)}>toggle</button>
             </div>
             <div
-                className={`w-80 h-screen top-0 border-r
+                className={`w-80 h-screen top-0 border-r 
                 text-light-200 bg-light-600 border-light-600
                 dark:text-dark-200 dark:bg-dark-800 dark:border-dark-600
                 flex flex-col items-start gap-4 justify-start py-10 px-10 transition-all z-20

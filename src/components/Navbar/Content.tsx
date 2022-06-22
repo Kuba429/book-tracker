@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { supabaseClient } from "../../utils/supabaseClient";
+import ThemeSwitcher from "../ThemeSwitcher";
 
 const Content: React.FC<{ userMail: string }> = ({ userMail }) => {
     const router = useRouter();
@@ -28,6 +29,7 @@ const Content: React.FC<{ userMail: string }> = ({ userMail }) => {
                     </Link>
                 );
             })}
+            <ThemeSwitcher />
             <span className="text-dimmed">{userMail}</span>
             <button className="text-dimmed" onClick={handleSignOut}>
                 Sing out
