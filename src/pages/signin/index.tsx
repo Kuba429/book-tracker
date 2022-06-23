@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { FormEvent } from "react";
 import { supabaseClient } from "../../utils/supabaseClient";
@@ -23,16 +24,32 @@ export default function SignIn() {
         return;
     };
     return (
-        <div>
+        <div className="flex justify-center items-center min-h-screen bg-light-800 dark:bg-dark-800">
             <form
                 onSubmit={handleSubmit}
-                className="flex flex-col gap-2 w-96 rounded border border-gray-300 p-4 mx-auto my-2"
+                className="mx-auto max-w-md flex flex-col gap-6 text-xl text-dark-800 dark:text-white "
             >
-                <input placeholder="email" type="text" name="email" />
-                <input placeholder="password" type="password" name="password" />
-                <button type="submit" className="bg-gray-300">
-                    Sign in
+                <input
+                    className="input"
+                    placeholder="Email"
+                    type="text"
+                    name="email"
+                />
+                <input
+                    className="input"
+                    placeholder="Password"
+                    type="password"
+                    name="password"
+                />
+                <button type="submit" className="btn self-stretch">
+                    <span className="">Sign in</span>
                 </button>
+                <p className="text-xs">
+                    Don't have an account yet?{" "}
+                    <Link href="/signin/register">
+                        <a className="text-orange-500">Sign up</a>
+                    </Link>
+                </p>
             </form>
         </div>
     );

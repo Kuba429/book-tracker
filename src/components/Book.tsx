@@ -21,7 +21,11 @@ const Book: React.FC<{ book: bookInterface; userId: string }> = ({
     }, []);
     return (
         <div key={book.id} className="book-card">
-            <img src={coverUrl} alt="Book cover" />
+            <img
+                className="object-contain w-24 h-36" // i want book covers to always take up the same space
+                src={coverUrl}
+                alt="Book cover"
+            />
             <div>
                 <p>{book.title}</p>
                 <p>{book.author}</p>

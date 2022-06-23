@@ -9,36 +9,53 @@ const Add = () => {
         <Layout>
             <form
                 onSubmit={formHandler}
-                className="my-4 mx-auto w-2/3 flex flex-col gap-6 text-xl text-dark-800 dark:text-white"
+                className="my-4 mx-auto max-w-md flex flex-col gap-6 text-xl text-dark-800 dark:text-white"
             >
-                <h1 className="text-4xl">Add a missing book</h1>
+                <h1 className="text-4xl">
+                    Add a missing book
+                    <p className="text-dimmed-always leading-tight text-lg">
+                        If a book you want to add isn't on the list feel free to
+                        add it yourself. It will be visible to everyone once it
+                        gets approved. Untill then, You are the only one who can
+                        see it.
+                    </p>
+                </h1>
+
                 <input
                     required
                     type="text"
-                    placeholder="title"
+                    placeholder="Title"
                     name="title"
                     className="input"
                 />
                 <input
                     required
                     type="text"
-                    placeholder="author"
+                    placeholder="Author"
                     name="author"
                     className="input"
                 />
                 <input
                     type="number"
-                    placeholder="pages"
+                    placeholder="Pages"
                     name="pages"
                     className="input"
                 />
                 <input
                     type="text"
-                    placeholder="language"
+                    placeholder="Language"
                     name="language"
+                    list="languages"
                     className="input"
                 />
-                <input required type="file" placeholder="cover" name="cover" />
+                <datalist id="languages">
+                    {languagesForAutocompletion.map((x) => (
+                        <option key={x} value={x}>
+                            {x}
+                        </option>
+                    ))}
+                </datalist>
+                <input type="file" placeholder="cover" name="cover" />
                 <button className="btn self-stretch" type="submit">
                     <span className="w-full">Submit</span>
                 </button>
@@ -59,7 +76,8 @@ const formHandler = async (e: FormEvent) => {
     const language: string = formData.get("language") as string;
 
     try {
-        const coverPath: string = await uploadToBucket(image);
+        const coverPath: string =
+            image.size > 0 ? await uploadToBucket(image) : ""; // assign empty string if no image is provided
         console.log("Image uploaded to bucket");
         const res = await supabaseClient.from("books").insert([
             {
@@ -94,3 +112,11 @@ const uploadToBucket = async (image: File): Promise<string> => {
     if (res.error) throw new Error(res.error.message);
     return id;
 };
+
+const languagesForAutocompletion = [
+    "Polish",
+    "English",
+    "Spanish",
+    "Russian",
+    "French",
+];
