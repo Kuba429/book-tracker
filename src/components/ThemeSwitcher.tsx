@@ -6,7 +6,7 @@ import Sun from "./Icons/Sun";
 const ThemeSwitcher = () => {
     const context = useContext(UserContext);
     return (
-        <div className="flex gap-1">
+        <div className="flex gap-1 mt-auto">
             <Sun />
             <label
                 className={`bg-orange-400 w-12 h-6 flex relative rounded-full cursor-pointer`}

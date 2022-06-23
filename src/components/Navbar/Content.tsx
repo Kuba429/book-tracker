@@ -30,9 +30,11 @@ const Content: React.FC<{ userMail: string }> = ({ userMail }) => {
                 );
             })}
             <ThemeSwitcher />
-            <span className="text-dimmed">{userMail}</span>
-            <button className="text-dimmed" onClick={handleSignOut}>
-                Sing out
+            <Link href={"/myprofile"}>
+                <a className="text-dimmed">{userMail}</a>
+            </Link>
+            <button className="btn" onClick={handleSignOut}>
+                <span>Sing out</span>
             </button>
         </>
     );
@@ -51,5 +53,9 @@ const links = [
     {
         name: "My List",
         url: "/mylist",
+    },
+    {
+        name: "My Profile",
+        url: "/myprofile",
     },
 ];
