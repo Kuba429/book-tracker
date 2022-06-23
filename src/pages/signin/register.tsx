@@ -35,20 +35,9 @@ export default function SignUp() {
                 onSubmit={handleSubmit}
                 className="mx-auto max-w-md flex flex-col gap-6 text-xl text-dark-800 dark:text-white"
             >
+                <input placeholder="Email" type="text" name="email" />
+                <input placeholder="Password" type="password" name="password" />
                 <input
-                    className="input"
-                    placeholder="Email"
-                    type="text"
-                    name="email"
-                />
-                <input
-                    className="input"
-                    placeholder="Password"
-                    type="password"
-                    name="password"
-                />
-                <input
-                    className="input"
                     placeholder="Confirm password"
                     type="password"
                     name="confirmPassword"

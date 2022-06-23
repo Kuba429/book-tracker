@@ -55,7 +55,6 @@ const UpdateProgressModal: React.FC<{
                     value={newPage}
                     min={0}
                     max={modalState.books.pages}
-                    className="input"
                     onInput={(e) => {
                         setNewPage(
                             parseInt((e.target as HTMLInputElement).value)

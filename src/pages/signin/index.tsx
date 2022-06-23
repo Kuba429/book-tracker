@@ -29,18 +29,8 @@ export default function SignIn() {
                 onSubmit={handleSubmit}
                 className="mx-auto max-w-md flex flex-col gap-6 text-xl text-dark-800 dark:text-white "
             >
-                <input
-                    className="input"
-                    placeholder="Email"
-                    type="text"
-                    name="email"
-                />
-                <input
-                    className="input"
-                    placeholder="Password"
-                    type="password"
-                    name="password"
-                />
+                <input placeholder="Email" type="text" name="email" />
+                <input placeholder="Password" type="password" name="password" />
                 <button type="submit" className="btn self-stretch">
                     <span className="">Sign in</span>
                 </button>

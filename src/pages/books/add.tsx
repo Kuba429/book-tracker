@@ -21,32 +21,19 @@ const Add = () => {
                     </p>
                 </h1>
 
-                <input
-                    required
-                    type="text"
-                    placeholder="Title"
-                    name="title"
-                    className="input"
-                />
+                <input required type="text" placeholder="Title" name="title" />
                 <input
                     required
                     type="text"
                     placeholder="Author"
                     name="author"
-                    className="input"
                 />
-                <input
-                    type="number"
-                    placeholder="Pages"
-                    name="pages"
-                    className="input"
-                />
+                <input type="number" placeholder="Pages" name="pages" />
                 <input
                     type="text"
                     placeholder="Language"
                     name="language"
                     list="languages"
-                    className="input"
                 />
                 <datalist id="languages">
                     {languagesForAutocompletion.map((x) => (
