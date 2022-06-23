@@ -20,10 +20,8 @@ export default function Books() {
     }, []);
     return (
         <Layout>
-            <header className="flex justify-between my-4">
-                <h1 className="text-dark-800 dark:text-white text-4xl">
-                    Books
-                </h1>
+            <header className="page-header">
+                <h1>Books</h1>
                 <button className="btn self-center">
                     <Link href="/books/add">
                         <a>Add more books</a>

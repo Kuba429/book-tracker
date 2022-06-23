@@ -1,13 +1,13 @@
-import type { NextPage } from "next";
 import Layout from "../components/Layout";
 
-const Home: NextPage = () => {
+const MyProfile = () => {
     return (
         <Layout>
             <header className="page-header">
-                <h1>Home</h1>
+                <h1>My Profile</h1>
             </header>
+            <div>*stuff about this profile*</div>
         </Layout>
     );
 };
-export default Home;
+export default MyProfile;

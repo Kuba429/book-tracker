@@ -50,4 +50,10 @@
         placeholder:text-dark-200 hover:placeholder:text-light-200
         dark:placeholder:text-light-200 dark:hover:placeholder:text-dark-200;
     }
+    .page-header {
+        @apply flex justify-between my-4;
+        h1:first-child {
+            @apply text-dark-800 dark:text-white text-4xl;
+        }
+    }
 }

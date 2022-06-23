@@ -18,7 +18,9 @@ export default function List() {
     }, []);
     return (
         <Layout>
-            <h1 className="text-dark-800 dark:text-white text-4xl">My List</h1>
+            <header className="page-header">
+                <h1>My List</h1>
+            </header>
             <div className="grid lg:grid-cols-3 grid-cols-1 sm:grid-cols-2 gap-2">
                 {books.length > 0 &&
                     books.map((b) => {
@@ -31,7 +33,6 @@ export default function List() {
                         );
                     })}
             </div>
-
             {modalState && (
                 <UpdateProgressModal
                     modalState={modalState as readBook} // at this point modalState is bound to not be false (therefore not a bool since true is never assigned to it)
