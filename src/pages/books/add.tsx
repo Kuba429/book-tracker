@@ -7,24 +7,41 @@ import { v4 } from "uuid";
 const Add = () => {
     return (
         <Layout>
-            <form onSubmit={formHandler} className="flex flex-col">
+            <form
+                onSubmit={formHandler}
+                className="my-4 mx-auto w-2/3 flex flex-col gap-6 text-xl text-dark-800 dark:text-white"
+            >
+                <h1 className="text-4xl">Add a missing book</h1>
                 <input
                     required
                     type="text"
                     placeholder="title"
                     name="title"
-                    className="m-1 border"
+                    className="input"
                 />
                 <input
                     required
                     type="text"
                     placeholder="author"
                     name="author"
+                    className="input"
                 />
-                <input type="number" placeholder="pages" name="pages" />
-                <input type="text" placeholder="language" name="language" />
+                <input
+                    type="number"
+                    placeholder="pages"
+                    name="pages"
+                    className="input"
+                />
+                <input
+                    type="text"
+                    placeholder="language"
+                    name="language"
+                    className="input"
+                />
                 <input required type="file" placeholder="cover" name="cover" />
-                <button type="submit">Submit</button>
+                <button className="btn self-stretch" type="submit">
+                    <span className="w-full">Submit</span>
+                </button>
             </form>
         </Layout>
     );

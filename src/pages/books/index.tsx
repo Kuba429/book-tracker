@@ -10,6 +10,7 @@ import { supabaseClient } from "../../utils/supabaseClient";
 import { book } from "../../interfaces";
 import Book from "../../components/Book";
 import { UserContext } from "../../components/ContextWrapper";
+import Link from "next/link";
 
 export default function Books() {
     const [books, setBooks] = useState<Array<book>>([]);
@@ -19,7 +20,17 @@ export default function Books() {
     }, []);
     return (
         <Layout>
-            <h1 className=" text-dark-800 dark:text-white text-4xl">Books</h1>
+            <header className="flex justify-between my-4">
+                <h1 className="text-dark-800 dark:text-white text-4xl">
+                    Books
+                </h1>
+                <button className="btn self-center">
+                    <Link href="/books/add">
+                        <a>Add more books</a>
+                    </Link>
+                </button>
+            </header>
+
             <div className="grid lg:grid-cols-3 grid-cols-1 sm:grid-cols-2 gap-2">
                 {books.map((b) => {
                     return (

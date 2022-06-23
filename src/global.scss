@@ -31,13 +31,23 @@
 	    relative z-10
         after:absolute after:-z-10
         after:top-1/4 after:left-0 after:w-full after:h-full
-    
+        flex
         hover:translate-y-1
         hover:after:-translate-y-1;
-        span {
-            @apply px-2 py-1 rounded
+        :first-child {
+            @apply px-2 rounded
             bg-orange-400 z-20 transition-all duration-100
             active:bg-orange-500;
         }
+    }
+    .input[type="text"],
+    .input[type="number"],
+    .input[type="email"],
+    .input[type="password"] {
+        @apply bg-light-600 dark:bg-dark-600 px-4 py-1 rounded-lg border-2 outline-none transition-colors border-light-700 dark:border-dark-700 
+        focus:border-light-200 dark:focus:border-dark-200 
+        placeholder:transition-colors 
+        placeholder:text-dark-200 hover:placeholder:text-light-200
+        dark:placeholder:text-light-200 dark:hover:placeholder:text-dark-200;
     }
 }
