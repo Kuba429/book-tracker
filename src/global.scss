@@ -50,6 +50,18 @@
         placeholder:text-dark-200 hover:placeholder:text-light-200
         dark:placeholder:text-light-200 dark:hover:placeholder:text-dark-200;
     }
+    input[type="range"] {
+        @apply appearance-none rounded w-full h-1 p-0 
+        bg-orange-300 
+        cursor-pointer
+        focus:outline-none  focus:shadow-none;
+        &::-webkit-slider-thumb {
+            // only changing it because chrome's default thumb is blue and doesn't match the track which is (set above to) orange. Leaving firefox, as it's default color fits fine
+            @apply appearance-none h-4 w-4 rounded-full
+            bg-light-600;
+            box-shadow: 0px 0px 1px #000; // tailwind shadow class isn't working for some reason
+        }
+    }
     .page-header {
         @apply flex justify-between my-4;
         h1:first-child {
