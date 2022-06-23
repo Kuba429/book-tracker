@@ -18,12 +18,27 @@ const UpdateProgressModal: React.FC<{
             {/* Modal itself can't be a child of element below because click on modal would trigger event listener and update state */}
             <div
                 onClick={() => setModalState(false)}
-                className="h-full w-full absolute z-30 top-0 left-0 bg-dark-800 opacity-50"
+                className={`h-full w-full absolute z-30 top-0 left-0 
+                dark:bg-dark-800 bg-light-800 opacity-70`}
             ></div>
-            <div
+            <form
                 className={`absolute z-40 top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 
-                w-11/12 h-5/6 bg-white`}
+                w-11/12 sm:w-auto
+                border-2 rounded
+                bg-light-800 dark:bg-dark-800 text-dark-800 dark:text-white
+                border-light-700 dark:border-dark-700
+                flex flex-col p-4 gap-4
+                `}
+                onSubmit={(e) => {
+                    e.preventDefault();
+                    updateProgress(newPage, modalState.id, dispatchBooks);
+                }}
             >
+                <h1 className="text-3xl">
+                    Update your progress
+                    <h3 className="text-base">{modalState.books.title}</h3>
+                </h1>
+
                 <input
                     value={newPage}
                     onInput={(e) => {
@@ -35,26 +50,22 @@ const UpdateProgressModal: React.FC<{
                     min={0}
                     max={modalState.books.pages}
                 />
-                <p>{newPage}</p>
                 <input
                     type="number"
                     value={newPage}
                     min={0}
                     max={modalState.books.pages}
+                    className="input"
                     onInput={(e) => {
                         setNewPage(
                             parseInt((e.target as HTMLInputElement).value)
                         );
                     }}
                 />
-                <button
-                    onClick={() =>
-                        updateProgress(newPage, modalState.id, dispatchBooks)
-                    }
-                >
-                    Update
+                <button className="btn" type="submit">
+                    <span>Update</span>
                 </button>
-            </div>
+            </form>
         </>
     );
 };
