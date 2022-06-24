@@ -13,7 +13,7 @@ module.exports = {
             black: colors.black,
             white: colors.white,
             orange: colors.orange,
-            slate: colors.slate,
+            red: colors.red,
             dark: {
                 200: "#a0a0a1",
                 600: "#2c2c2c",

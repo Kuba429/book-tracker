@@ -28,6 +28,7 @@ export default function List() {
                             <ReadBook
                                 readBook={b}
                                 setModalState={setModalState}
+                                dispatchBooks={dispatchBooks}
                                 key={b.id}
                             />
                         );

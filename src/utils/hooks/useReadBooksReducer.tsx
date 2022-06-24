@@ -4,6 +4,7 @@ import { readBook } from "../../interfaces";
 export enum ReadBooksKind {
     UPDATE_PROGRESS = "UPDATE_PROGRESS",
     SET_BOOKS = "SET_BOOKS",
+    REMOVE_BOOK = "REMOVE_BOOK",
 }
 export interface ReadBooksAction {
     type: ReadBooksKind;
@@ -33,6 +34,9 @@ const booksReducer = (
                 newLastPageRead = copy[index].books.pages; // cap last read page
             copy[index].last_read_page = newLastPageRead;
             return copy;
+        case ReadBooksKind.REMOVE_BOOK:
+            state = state.filter((i) => i.id !== action.payload.id);
+            return state;
     }
 };
 export const useReadBooksReducer = () => {
