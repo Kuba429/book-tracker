@@ -34,9 +34,10 @@ const UpdateProgressModal: React.FC<{
                     updateProgress(newPage, modalState.id, dispatchBooks);
                 }}
             >
-                <h1 className="text-3xl">
+                <h1 className="text-3xl leading-8">
                     Update your progress
-                    <h3 className="text-base">{modalState.books.title}</h3>
+                    <br />
+                    <span className="text-base">{modalState.books.title}</span>
                 </h1>
 
                 <input
