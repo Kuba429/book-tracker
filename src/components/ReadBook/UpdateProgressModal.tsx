@@ -1,4 +1,5 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
+import { useMutation } from "react-query";
 import { readBook } from "../../interfaces";
 import {
     ReadBooksAction,
@@ -12,6 +13,25 @@ const UpdateProgressModal: React.FC<{
     dispatchBooks: Dispatch<ReadBooksAction>;
 }> = ({ setModalState, modalState, dispatchBooks }) => {
     const [newPage, setNewPage] = useState(modalState.last_read_page);
+    const mutation = useMutation(
+        async (newLastPageRead: number) => {
+            const res = await supabaseClient
+                .from("read_books")
+                .update({ last_read_page: newLastPageRead })
+                .eq("id", modalState.id);
+            if (res.error) throw new Error(res.error.message);
+        },
+        {
+            onSuccess(data, variables, context) {
+                dispatchBooks({
+                    // update read books state to display updated progress without refetching
+                    type: ReadBooksKind.UPDATE_PROGRESS,
+                    payload: { id: modalState.id, lastReadPage: variables },
+                });
+                setModalState(false);
+            },
+        }
+    );
     return (
         <>
             {/* Dim the space behind the modal and make modal disappear on click */}
@@ -31,12 +51,7 @@ const UpdateProgressModal: React.FC<{
                 `}
                 onSubmit={(e) => {
                     e.preventDefault();
-                    updateProgress(
-                        newPage,
-                        modalState.id,
-                        dispatchBooks,
-                        setModalState
-                    );
+                    mutation.mutate(newPage);
                 }}
             >
                 <h1 className="text-3xl leading-8">
@@ -67,36 +82,17 @@ const UpdateProgressModal: React.FC<{
                         );
                     }}
                 />
-                <button className="btn-primary" type="submit">
-                    <span>Update</span>
+                <button
+                    disabled={mutation.isLoading}
+                    className="btn-primary group disabled:after:bg-gray-400"
+                    type="submit"
+                >
+                    <span className="group-disabled:bg-gray-300 group-disabled:text-gray-700">
+                        {mutation.isLoading ? "Updating..." : "Update"}
+                    </span>
                 </button>
             </form>
         </>
     );
 };
 export default UpdateProgressModal;
-const updateProgress = async (
-    newLastPageRead: number,
-    readBookId: string,
-    dispatchBooks: Dispatch<ReadBooksAction>,
-    setModalState: Dispatch<SetStateAction<readBook | boolean>>
-) => {
-    try {
-        const res = await supabaseClient
-            .from("read_books")
-            .update({ last_read_page: newLastPageRead })
-            .eq("id", readBookId);
-        console.log(res);
-        if (res.error) throw new Error(res.error.message);
-        dispatchBooks({
-            type: ReadBooksKind.UPDATE_PROGRESS,
-            payload: { id: readBookId, lastReadPage: newLastPageRead },
-        });
-    } catch (error) {
-        console.error(error);
-    } finally {
-        setModalState(false);
-    }
-
-    return;
-};
