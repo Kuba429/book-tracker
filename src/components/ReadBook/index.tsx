@@ -44,7 +44,13 @@ const ReadBook: React.FC<{
                     </button>
                     <button
                         onClick={() => {
-                            removeReadBook(readBook.id, dispatchBooks); // TODO add some kind of prompt to avoid accidental removals
+                            if (
+                                !confirm(
+                                    `This is going to delete "${readBook.books.title}" from your list along with your progress`
+                                )
+                            )
+                                return;
+                            removeReadBook(readBook.id, dispatchBooks);
                         }}
                         className="btn-danger"
                     >
