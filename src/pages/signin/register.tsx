@@ -42,7 +42,7 @@ export default function SignUp() {
                     type="password"
                     name="confirmPassword"
                 />
-                <button type="submit" className="btn">
+                <button type="submit" className="btn-primary">
                     <span>Sign up</span>
                 </button>
                 <p className="text-xs">

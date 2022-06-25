@@ -1,3 +1,5 @@
+import { faAnglesLeft, faBars } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useState } from "react";
 import Content from "./Content";
 
@@ -8,9 +10,11 @@ const Navbar: React.FC<{ userMail: string }> = ({ userMail }) => {
             <div
                 className={`bg-light-800 border-b border-light-600 text-dark-800
                 dark:bg-dark-800 dark:border-b dark:border-dark-600 dark:text-white
-                py-3 md:hidden sticky top-0`}
+                py-0 md:hidden sticky top-0`}
             >
-                <button onClick={() => setIsVisible((x) => !x)}>toggle</button>
+                <button className="p-2" onClick={() => setIsVisible((x) => !x)}>
+                    <FontAwesomeIcon icon={faBars} />
+                </button>
             </div>
             <div
                 className={`w-80 h-screen top-0 border-r 
@@ -23,12 +27,12 @@ const Navbar: React.FC<{ userMail: string }> = ({ userMail }) => {
                 `}
             >
                 <button
-                    className="md:hidden"
+                    className="md:hidden self-end"
                     onClick={() => {
                         setIsVisible(false);
                     }}
                 >
-                    toggle
+                    <FontAwesomeIcon icon={faAnglesLeft} />
                 </button>
                 <Content userMail={userMail} />
             </div>

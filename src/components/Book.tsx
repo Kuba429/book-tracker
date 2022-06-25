@@ -30,7 +30,10 @@ const Book: React.FC<{ book: bookInterface; userId: string }> = ({
                 <p>{book.title}</p>
                 <p>{book.author}</p>
                 <p>{book.pages} pages</p>
-                <button onClick={() => addBook(book.id, userId!)}>
+                <button
+                    className="btn-primary"
+                    onClick={() => addBook(book.id, userId!)}
+                >
                     <span>Add</span>
                 </button>
             </div>

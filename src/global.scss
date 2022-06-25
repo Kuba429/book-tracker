@@ -17,12 +17,11 @@
                 @apply flex gap-1;
             }
             button {
-                @apply btn self-start mb-2;
+                @apply self-start mb-2;
             }
-            .btn-danger {
-                @apply after:bg-red-600;
+            .btn-primary {
                 :first-child {
-                    @apply bg-red-400 active:bg-red-500;
+                    @apply w-full;
                 }
             }
         }
@@ -44,9 +43,21 @@
         hover:translate-y-1
         hover:after:-translate-y-1;
         :first-child {
-            @apply px-2 rounded w-full
+            @apply px-2 rounded
             bg-orange-400 z-20 transition-all duration-100
             active:bg-orange-500;
+        }
+    }
+    .btn-primary {
+        @apply btn;
+        :first-child {
+            @apply w-full;
+        }
+    }
+    .btn-danger {
+        @apply btn after:bg-red-600;
+        :first-child {
+            @apply bg-red-400 active:bg-red-500 px-1;
         }
     }
     input[type="text"],

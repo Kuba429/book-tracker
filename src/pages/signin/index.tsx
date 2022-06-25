@@ -31,7 +31,7 @@ export default function SignIn() {
             >
                 <input placeholder="Email" type="text" name="email" />
                 <input placeholder="Password" type="password" name="password" />
-                <button type="submit" className="btn self-stretch">
+                <button type="submit" className="btn-primary self-stretch">
                     <span className="">Sign in</span>
                 </button>
                 <p className="text-xs">

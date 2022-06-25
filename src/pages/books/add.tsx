@@ -43,7 +43,7 @@ const Add = () => {
                     ))}
                 </datalist>
                 <input type="file" placeholder="cover" name="cover" />
-                <button className="btn self-stretch" type="submit">
+                <button className="btn-primary self-stretch" type="submit">
                     <span className="w-full">Submit</span>
                 </button>
             </form>

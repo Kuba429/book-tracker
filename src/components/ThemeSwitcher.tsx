@@ -1,13 +1,12 @@
+import { faMoon, faSun } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useContext } from "react";
 import { UserContext } from "./ContextWrapper";
-import Moon from "./Icons/Moon";
-import Sun from "./Icons/Sun";
-// icons as components instead of images in order for them to be dark mode dependent
 const ThemeSwitcher = () => {
     const context = useContext(UserContext);
     return (
-        <div className="flex gap-1 mt-auto">
-            <Sun />
+        <div className="flex items-center gap-1 mt-auto">
+            <FontAwesomeIcon icon={faSun} className="text-xl" />
             <label
                 className={`bg-orange-400 w-12 h-6 flex relative rounded-full cursor-pointer`}
             >
@@ -24,7 +23,7 @@ const ThemeSwitcher = () => {
                     type="checkbox"
                 />
             </label>
-            <Moon />
+            <FontAwesomeIcon icon={faMoon} className="text-xl" />
         </div>
     );
 };

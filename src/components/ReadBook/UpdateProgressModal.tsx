@@ -62,7 +62,7 @@ const UpdateProgressModal: React.FC<{
                         );
                     }}
                 />
-                <button className="btn" type="submit">
+                <button className="btn-primary" type="submit">
                     <span>Update</span>
                 </button>
             </form>

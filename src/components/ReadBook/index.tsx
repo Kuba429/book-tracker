@@ -1,3 +1,5 @@
+import { faX } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { readBook, readBook as readBookInterface } from "../../interfaces";
 import defaultCover from "../../utils/defaultCover";
@@ -39,6 +41,7 @@ const ReadBook: React.FC<{
                         onClick={() => {
                             setModalState(readBook);
                         }}
+                        className="btn-primary"
                     >
                         <span>Update</span>
                     </button>
@@ -54,8 +57,9 @@ const ReadBook: React.FC<{
                         }}
                         className="btn-danger"
                     >
-                        <span>x</span>
-                        {/* TODO change the x to an icon later */}
+                        <span>
+                            <FontAwesomeIcon icon={faX} />
+                        </span>
                     </button>
                 </div>
             </div>

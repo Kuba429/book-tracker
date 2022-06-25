@@ -22,7 +22,7 @@ export default function Books() {
         <Layout>
             <header className="page-header">
                 <h1>Books</h1>
-                <button className="btn self-center">
+                <button className="btn-primary self-center">
                     <Link href="/books/add">
                         <a>Add more books</a>
                     </Link>
