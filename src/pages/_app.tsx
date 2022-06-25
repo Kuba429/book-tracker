@@ -4,12 +4,16 @@ import ContextWrapper from "../components/ContextWrapper";
 
 import { config } from "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/fontawesome-svg-core/styles.css";
+import { QueryClient, QueryClientProvider } from "react-query";
 config.autoAddCss = false;
 
+const queryClient = new QueryClient();
 function MyApp({ Component, pageProps }: AppProps) {
     return (
         <ContextWrapper>
-            <Component {...pageProps} />
+            <QueryClientProvider client={queryClient}>
+                <Component {...pageProps} />
+            </QueryClientProvider>
         </ContextWrapper>
     );
 }
