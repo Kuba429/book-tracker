@@ -31,7 +31,12 @@ const UpdateProgressModal: React.FC<{
                 `}
                 onSubmit={(e) => {
                     e.preventDefault();
-                    updateProgress(newPage, modalState.id, dispatchBooks);
+                    updateProgress(
+                        newPage,
+                        modalState.id,
+                        dispatchBooks,
+                        setModalState
+                    );
                 }}
             >
                 <h1 className="text-3xl leading-8">
@@ -73,16 +78,25 @@ export default UpdateProgressModal;
 const updateProgress = async (
     newLastPageRead: number,
     readBookId: string,
-    dispatchBooks: Dispatch<ReadBooksAction>
+    dispatchBooks: Dispatch<ReadBooksAction>,
+    setModalState: Dispatch<SetStateAction<readBook | boolean>>
 ) => {
-    const res = await supabaseClient
-        .from("read_books")
-        .update({ last_read_page: newLastPageRead })
-        .eq("id", readBookId);
-    console.log(res);
-    dispatchBooks({
-        type: ReadBooksKind.UPDATE_PROGRESS,
-        payload: { id: readBookId, lastReadPage: newLastPageRead },
-    });
+    try {
+        const res = await supabaseClient
+            .from("read_books")
+            .update({ last_read_page: newLastPageRead })
+            .eq("id", readBookId);
+        console.log(res);
+        if (res.error) throw new Error(res.error.message);
+        dispatchBooks({
+            type: ReadBooksKind.UPDATE_PROGRESS,
+            payload: { id: readBookId, lastReadPage: newLastPageRead },
+        });
+    } catch (error) {
+        console.error(error);
+    } finally {
+        setModalState(false);
+    }
+
     return;
 };
