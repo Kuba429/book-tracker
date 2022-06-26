@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import Layout from "../../components/Layout";
 import { supabaseClient } from "../../utils/supabaseClient";
 import { book } from "../../interfaces";
@@ -23,17 +23,19 @@ export default function Books() {
     );
 }
 const BooksContainer = () => {
+    const context = useContext(UserContext);
     const { isLoading, isError, data, error } = useQuery<Array<book>, Error>(
         "books",
         async () => {
+            const userId = await supabaseClient.auth.user()?.id;
             const res = await supabaseClient
                 .from("books")
-                .select("id,title,author,pages,language,cover_path");
+                .select("id,title,author,pages,language,cover_path")
+                .or(`added_by.eq.${userId},approved.eq.true`);
             if (res.error) throw new Error(res.error.message);
             return res.data;
         }
     );
-    const context = useContext(UserContext);
     if (isLoading)
         return (
             <h1 className="text-4xl text-dark-800 dark:text-white">Loading</h1>

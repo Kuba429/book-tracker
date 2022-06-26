@@ -66,6 +66,7 @@ const formHandler = async (e: FormEvent) => {
         const coverPath: string =
             image.size > 0 ? await uploadToBucket(image) : ""; // assign empty string if no image is provided
         console.log("Image uploaded to bucket");
+        const userId = await supabaseClient.auth.user()?.id;
         const res = await supabaseClient.from("books").insert([
             {
                 title,
@@ -73,6 +74,8 @@ const formHandler = async (e: FormEvent) => {
                 pages: parseInt(pages),
                 language,
                 cover_path: coverPath,
+                approved: false,
+                added_by: userId,
             },
         ]);
         if (res.error) throw new Error(res.error.message);
