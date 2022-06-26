@@ -3,12 +3,48 @@ import Layout from "../../components/Layout";
 import Compress from "compress.js";
 import { supabaseClient } from "../../utils/supabaseClient";
 import { v4 } from "uuid";
+import { useMutation } from "react-query";
+import { useRouter } from "next/router";
 
 const Add = () => {
+    const router = useRouter();
+    const mutation = useMutation(
+        async (e: FormEvent) => {
+            e.preventDefault();
+            const formData = new FormData(e.target as HTMLFormElement);
+            const image: File = formData.get("cover") as File;
+            const title: string = formData.get("title") as string;
+            const author: string = formData.get("author") as string;
+            const pages: string = formData.get("pages") as string;
+            const language: string = formData.get("language") as string;
+
+            const coverPath: string =
+                image.size > 0 ? await uploadToBucket(image) : ""; // assign empty string if no image is provided
+            console.log("Image uploaded to bucket");
+            const userId = await supabaseClient.auth.user()?.id;
+            const res = await supabaseClient.from("books").insert([
+                {
+                    title,
+                    author,
+                    pages: parseInt(pages),
+                    language,
+                    cover_path: coverPath,
+                    approved: false,
+                    added_by: userId,
+                },
+            ]);
+            if (res.error) throw new Error(res.error.message);
+        },
+        {
+            onSuccess: () => {
+                router.push("/books");
+            },
+        }
+    );
     return (
         <Layout>
             <form
-                onSubmit={formHandler}
+                onSubmit={mutation.mutate}
                 className="my-4 mx-auto max-w-md flex flex-col gap-6 text-xl text-dark-800 dark:text-white"
             >
                 <h1 className="text-4xl">
@@ -43,47 +79,25 @@ const Add = () => {
                     ))}
                 </datalist>
                 <input type="file" placeholder="cover" name="cover" />
-                <button className="btn-primary self-stretch" type="submit">
-                    <span className="w-full">Submit</span>
+                <button
+                    disabled={mutation.status == "loading"}
+                    className={`btn-primary self-stretch disabled:after:bg-gray-400 group`}
+                    type="submit"
+                >
+                    <span className="w-full group-disabled:bg-gray-300 group-disabled:text-gray-700">
+                        {mutation.status == "loading" ? "Submitting" : "Submit"}
+                    </span>
                 </button>
+                {mutation.status == "error" && (
+                    <p className="text-red-500">{`error: ${mutation.error}`}</p>
+                )}
             </form>
         </Layout>
     );
 };
 export default Add;
+
 const compress = new Compress();
-
-const formHandler = async (e: FormEvent) => {
-    e.preventDefault();
-    const formData = new FormData(e.target as HTMLFormElement);
-    const image: File = formData.get("cover") as File;
-    const title: string = formData.get("title") as string;
-    const author: string = formData.get("author") as string;
-    const pages: string = formData.get("pages") as string;
-    const language: string = formData.get("language") as string;
-
-    try {
-        const coverPath: string =
-            image.size > 0 ? await uploadToBucket(image) : ""; // assign empty string if no image is provided
-        console.log("Image uploaded to bucket");
-        const userId = await supabaseClient.auth.user()?.id;
-        const res = await supabaseClient.from("books").insert([
-            {
-                title,
-                author,
-                pages: parseInt(pages),
-                language,
-                cover_path: coverPath,
-                approved: false,
-                added_by: userId,
-            },
-        ]);
-        if (res.error) throw new Error(res.error.message);
-    } catch (error) {
-        console.error(error);
-    }
-};
-
 const uploadToBucket = async (image: File): Promise<string> => {
     // compress the image
     const compressed = await compress.compress([image], {
