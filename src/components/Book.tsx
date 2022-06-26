@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useMutation } from "react-query";
 import { book as bookInterface } from "../interfaces";
 import defaultCover from "../utils/defaultCover";
 import { supabaseClient } from "../utils/supabaseClient";
@@ -19,6 +20,29 @@ const Book: React.FC<{ book: bookInterface; userId: string }> = ({
             setCoverUrl(data || defaultCover!); // fall back to default cover if needed
         }
     }, []);
+    const mutation = useMutation(
+        async () => {
+            // add book to list mutation
+            if (!userId)
+                throw new Error("There was a problem with authentication");
+            const resCheck = await supabaseClient
+                .from("read_books")
+                .select("id")
+                .eq("book_id", book.id)
+                .eq("user_id", userId);
+            if (resCheck.data?.length! > 0)
+                // ensure the book isn't already in this user's list
+                throw new Error("This book is already in your list");
+            const res = await supabaseClient.from("read_books").insert([
+                {
+                    user_id: userId,
+                    book_id: book.id,
+                },
+            ]);
+            if (res.error) throw new Error(res.error.message);
+        },
+        { onError: (e) => alert(e) }
+    );
     return (
         <div key={book.id} className="book-card">
             <img
@@ -31,38 +55,27 @@ const Book: React.FC<{ book: bookInterface; userId: string }> = ({
                 <p>{book.author}</p>
                 <p>{book.pages} pages</p>
                 <button
-                    className="btn-primary"
-                    onClick={() => addBook(book.id, userId!)}
+                    className={`${
+                        mutation.isError ? "btn-danger" : "btn-primary" // apply danger class when error
+                    } group disabled:after:bg-gray-400`}
+                    disabled={
+                        mutation.status == "success" ||
+                        mutation.status == "loading"
+                    }
+                    onClick={() => mutation.mutate()}
                 >
-                    <span>Add</span>
+                    <span className="group-disabled:bg-gray-300 group-disabled:text-gray-700">
+                        {mutation.status == "success" // give text appropriate to mutation status
+                            ? "Added"
+                            : mutation.status == "loading"
+                            ? "Adding..."
+                            : mutation.status == "error"
+                            ? "Try again"
+                            : "Add"}
+                    </span>
                 </button>
             </div>
         </div>
     );
 };
 export default Book;
-
-const addBook = async (bookId: string, userId: string) => {
-    if (!userId) {
-        return;
-    }
-    // check if book was already added to user's list
-    try {
-        const resCheck = await supabaseClient
-            .from("read_books")
-            .select("id")
-            .eq("book_id", bookId)
-            .eq("user_id", userId);
-        if (resCheck.data?.length! > 0)
-            throw new Error("This book is already in your list");
-        const res = await supabaseClient.from("read_books").insert([
-            {
-                user_id: userId,
-                book_id: bookId,
-            },
-        ]);
-        if (res.error) throw new Error(res.error.message);
-    } catch (error) {
-        console.error(error);
-    }
-};
