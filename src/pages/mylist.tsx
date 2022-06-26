@@ -65,21 +65,30 @@ const ReadBooksContainer: React.FC<{
                 </h2>
             );
         default:
-            return (
-                <div className="grid lg:grid-cols-3 grid-cols-1 sm:grid-cols-2 gap-2">
-                    {books.length > 0 &&
-                        books.map((b) => {
-                            return (
-                                <ReadBook
-                                    readBook={b}
-                                    setModalState={setModalState}
-                                    dispatchBooks={dispatchBooks}
-                                    key={b.id}
-                                />
-                            );
-                        })}
-                </div>
-            );
+            if (books.length > 0) {
+                return (
+                    <div className="grid lg:grid-cols-3 grid-cols-1 sm:grid-cols-2 gap-2">
+                        {books.length > 0 &&
+                            books.map((b) => {
+                                return (
+                                    <ReadBook
+                                        readBook={b}
+                                        setModalState={setModalState}
+                                        dispatchBooks={dispatchBooks}
+                                        key={b.id}
+                                    />
+                                );
+                            })}
+                    </div>
+                );
+            } else {
+                return (
+                    <p className="w-full text-center text-dark-800 dark:text-white">
+                        You haven't added any books yet. Any books you decide to
+                        add will appear here!
+                    </p>
+                );
+            }
     }
 };
 const fetchReadBooks = async () => {
