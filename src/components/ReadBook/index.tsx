@@ -31,7 +31,11 @@ const ReadBook: React.FC<{
     }, []);
     return (
         <div key={readBook.books.id} className="book-card">
-            <img src={coverUrl} alt="Book cover" />
+            <img
+                className="object-contain w-24 h-36"
+                src={coverUrl}
+                alt="Book cover"
+            />
             <div>
                 <p>{readBook.books.title}</p>
                 <p>{readBook.books.author}</p>
