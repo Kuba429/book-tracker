@@ -2,45 +2,39 @@
 @tailwind components;
 @tailwind utilities;
 
-html,
-body,
-#__next {
-    height: 100%;
-} // fix annoying url bars on mobile devices
-
 @layer components {
-    .book-card {
-        @apply bg-light-600 dark:bg-dark-700 text-dimmed-always p-1 rounded flex gap-1 transition-colors;
-        & > div {
-            @apply truncate flex flex-col justify-between transition-colors;
-            img {
-                @apply object-none;
-            }
-            p:first-child {
-                @apply text-dark-800 dark:text-white transition-colors;
-            }
-            & > div {
-                @apply flex gap-1;
-            }
-            button {
-                @apply self-start mb-2;
-            }
-            .btn-primary {
-                :first-child {
-                    @apply w-full;
-                }
-            }
-        }
-    }
-    .text-dimmed-always {
-        @apply text-light-200 dark:text-dark-200;
-    }
-    .text-dimmed {
-        @apply text-dimmed-always hover:text-dark-800 hover:dark:text-white transition-colors;
-    }
-    .btn {
-        // assumes only 1 child exists
-        @apply text-white rounded transition-all duration-100
+	.book-card {
+		@apply bg-light-600 dark:bg-dark-700 text-dimmed-always p-1 rounded flex gap-1 transition-colors;
+		& > div {
+			@apply truncate flex flex-col justify-between transition-colors;
+			img {
+				@apply object-none;
+			}
+			p:first-child {
+				@apply text-dark-800 dark:text-white transition-colors;
+			}
+			& > div {
+				@apply flex gap-1;
+			}
+			button {
+				@apply self-start mb-2;
+			}
+			.btn-primary {
+				:first-child {
+					@apply w-full;
+				}
+			}
+		}
+	}
+	.text-dimmed-always {
+		@apply text-light-200 dark:text-dark-200;
+	}
+	.text-dimmed {
+		@apply text-dimmed-always hover:text-dark-800 hover:dark:text-white transition-colors;
+	}
+	.btn {
+		// assumes only 1 child exists
+		@apply text-white rounded transition-all duration-100
         after:bg-orange-600 after:rounded after:transition-all after:duration-100
 	    relative z-10
         after:absolute after:-z-10
@@ -48,50 +42,50 @@ body,
         flex
         hover:translate-y-1
         hover:after:-translate-y-1;
-        :first-child {
-            @apply px-2 rounded
+		:first-child {
+			@apply px-2 rounded
             bg-orange-400 z-20 transition-all duration-100
             active:bg-orange-500;
-        }
-    }
-    .btn-primary {
-        @apply btn;
-        :first-child {
-            @apply w-full;
-        }
-    }
-    .btn-danger {
-        @apply btn after:bg-red-600;
-        :first-child {
-            @apply bg-red-400 active:bg-red-500 px-1;
-        }
-    }
-    input[type="text"],
-    input[type="number"],
-    input[type="email"],
-    input[type="password"] {
-        @apply bg-light-600 dark:bg-dark-600 px-4 py-1 rounded-lg border-2 outline-none transition-colors border-light-700 dark:border-dark-700 
+		}
+	}
+	.btn-primary {
+		@apply btn;
+		:first-child {
+			@apply w-full;
+		}
+	}
+	.btn-danger {
+		@apply btn after:bg-red-600;
+		:first-child {
+			@apply bg-red-400 active:bg-red-500 px-1;
+		}
+	}
+	input[type="text"],
+	input[type="number"],
+	input[type="email"],
+	input[type="password"] {
+		@apply bg-light-600 dark:bg-dark-600 px-4 py-1 rounded-lg border-2 outline-none transition-colors border-light-700 dark:border-dark-700 
         focus:border-light-200 dark:focus:border-dark-200 
         placeholder:transition-colors 
         placeholder:text-dark-200 hover:placeholder:text-light-200
         dark:placeholder:text-light-200 dark:hover:placeholder:text-dark-200;
-    }
-    input[type="range"] {
-        @apply appearance-none rounded w-full h-1 p-0 
+	}
+	input[type="range"] {
+		@apply appearance-none rounded w-full h-1 p-0 
         bg-orange-300 
         cursor-pointer
         focus:outline-none  focus:shadow-none;
-        &::-webkit-slider-thumb {
-            // only changing it because chrome's default thumb is blue and doesn't match the track which is (set above to) orange. Leaving firefox, as it's default color fits fine
-            @apply appearance-none h-4 w-4 rounded-full
+		&::-webkit-slider-thumb {
+			// only changing it because chrome's default thumb is blue and doesn't match the track which is (set above to) orange. Leaving firefox, as it's default color fits fine
+			@apply appearance-none h-4 w-4 rounded-full
             bg-light-600;
-            box-shadow: 0px 0px 1px #000; // tailwind shadow class isn't working for some reason
-        }
-    }
-    .page-header {
-        @apply flex justify-between my-4;
-        h1:first-child {
-            @apply text-dark-800 dark:text-white text-4xl;
-        }
-    }
+			box-shadow: 0px 0px 1px #000; // tailwind shadow class isn't working for some reason
+		}
+	}
+	.page-header {
+		@apply flex justify-between my-4;
+		h1:first-child {
+			@apply text-dark-800 dark:text-white text-4xl;
+		}
+	}
 }
