@@ -88,4 +88,34 @@
 			@apply text-dark-800 dark:text-white text-4xl;
 		}
 	}
+
+	.carousel {
+		@apply relative w-full min-w-full overflow-hidden p-5;
+		button {
+			@apply absolute z-10 top-1/2 bg-light-800;
+		}
+		.buttonLeft {
+			@apply left-1;
+		}
+		.buttonRight {
+			@apply right-1;
+		}
+		.track {
+			@apply w-full flex bg-red-600 transition-all;
+			.tile {
+				@apply w-1/3 md:w-1/4 p-1 bg-dark-200 flex-shrink-0 flex-grow-0;
+			}
+		}
+	}
+}
+// change variable to make it accessible to js; this way carousel pages are dependant on tailwind breakpoints
+// unfortunately these breakpoints have to be hardcoded now, i don't think it's possible to modify css variables with tailwind (using it's breakpoints)
+:root {
+	--tile-width: 33%;
+}
+@media (min-width: 768px) {
+	// md: breakpoint
+	:root {
+		--tile-width: 25%;
+	}
 }
