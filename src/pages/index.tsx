@@ -12,38 +12,42 @@ const Home: NextPage = () => {
 			<header className="page-header">
 				<h1>Home</h1>
 			</header>
-			<MostPopularCarousel />
+			<RecentlyAddedCarousel />
 		</Layout>
 	);
 };
 export default Home;
 
-const MostPopularCarousel = () => {
-	// let data: Array<Tile> = [];
-	// for (let i = 0; i < 20; i++) data.push({ imgUrl: defaultCover!, id: i });
+const RecentlyAddedCarousel = () => {
 	const { data, status, error } = useQuery<Array<Tile>, Error>(
 		"most-popular-carousel",
 		async () => {
-			const tiles: Array<Tile> = [];
 			const res = await supabaseClient
 				.from("books")
-				.select("id,cover_path");
+				.select("id,cover_path")
+				.limit(23) // 24 with "see more" tile; 24 is divisible by 3, 4 and 8 which are the possible numbers of tiles on screen
+				.order("created_at", { ascending: false });
 			if (res.error) throw new Error(res.error.message);
-			// form objects of proper type below; also get covers
-			res.data.forEach(async (row: book) => {
-				const newTile: Tile = {
-					imgUrl:
-						supabaseClient.storage
-							.from("covers")
-							.getPublicUrl(row.cover_path).data?.publicURL ??
-						defaultCover!,
-					id: row.id as unknown as number,
-				};
-				tiles.push(newTile);
-			});
+			const tiles = responseToTiles(res.data);
 			return tiles;
 		}
 	);
 	if (status == "success") return <Carousel data={data} />;
 	return <p>WORK IN PROGRESS</p>;
+};
+
+const responseToTiles = (data: book[]) => {
+	const tiles: Array<Tile> = [];
+	data.forEach(async (row: book) => {
+		const newTile: Tile = {
+			imgUrl:
+				supabaseClient.storage
+					.from("covers")
+					.getPublicUrl(row.cover_path).data?.publicURL ??
+				defaultCover!,
+			id: row.id as unknown as number,
+		};
+		tiles.push(newTile);
+	});
+	return tiles;
 };
