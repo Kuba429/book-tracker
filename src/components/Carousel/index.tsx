@@ -1,17 +1,13 @@
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
-import defaultCover from "../../utils/defaultCover";
+import React, { FC } from "react";
 import { usePage } from "../../utils/hooks/usePage";
-interface Tile {
-	url: string;
+export interface Tile {
+	imgUrl: string;
 	id: number;
 }
 const TILE_HEIGHT = "h-36"; // set here to make buttons the same height
-const Carousel = () => {
-	let data: Array<Tile> = [];
-	for (let i = 0; i < 20; i++) data.push({ url: defaultCover!, id: i });
-	///////////////////////// dummy data above
+const Carousel: FC<{ data: Array<Tile> }> = ({ data }) => {
 	const [page, addPage, subtractPage] = usePage(data.length);
 	return (
 		<div className="carousel">
@@ -45,7 +41,7 @@ const Tile: React.FC<{ data: Tile }> = ({ data }) => {
 		<div className="tile">
 			<img
 				className={`object-contain m-auto w-24 ${TILE_HEIGHT} rounded`}
-				src={data.url}
+				src={data.imgUrl}
 				alt={data.id as unknown as string}
 			/>
 		</div>
