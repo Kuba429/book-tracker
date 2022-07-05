@@ -1,11 +1,11 @@
 import React, { Dispatch, SetStateAction, useState } from "react";
 import { useMutation } from "react-query";
-import { readBook } from "../../interfaces";
+import { readBook } from "interfaces";
 import {
 	ReadBooksAction,
 	ReadBooksKind,
-} from "../../utils/hooks/useReadBooksReducer";
-import { supabaseClient } from "../../utils/supabaseClient";
+} from "utils/hooks/useReadBooksReducer";
+import { supabaseClient } from "utils/supabaseClient";
 
 const UpdateProgressModal: React.FC<{
 	setModalState: Dispatch<SetStateAction<readBook | boolean>>;

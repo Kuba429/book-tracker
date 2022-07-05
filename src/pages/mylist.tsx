@@ -1,14 +1,14 @@
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import ReadBook from "../components/ReadBook";
-import UpdateProgressModal from "../components/ReadBook/UpdateProgressModal";
-import Layout from "../components/Layout";
-import { readBook } from "../interfaces";
+import ReadBook from "components/ReadBook";
+import UpdateProgressModal from "components/ReadBook/UpdateProgressModal";
+import Layout from "components/Layout";
+import { readBook } from "interfaces";
 import {
 	ReadBooksAction,
 	ReadBooksKind,
 	useReadBooksReducer,
-} from "../utils/hooks/useReadBooksReducer";
-import { supabaseClient } from "../utils/supabaseClient";
+} from "utils/hooks/useReadBooksReducer";
+import { supabaseClient } from "utils/supabaseClient";
 import { useQuery } from "react-query";
 
 export default function List() {

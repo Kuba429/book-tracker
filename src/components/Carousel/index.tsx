@@ -1,7 +1,7 @@
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { FC } from "react";
-import { usePage } from "../../utils/hooks/usePage";
+import { usePage } from "utils/hooks/usePage";
 export interface Tile {
 	imgUrl: string;
 	id: number;

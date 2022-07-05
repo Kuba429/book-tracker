@@ -1,6 +1,6 @@
-import "../global.scss";
+import "global.scss";
 import type { AppProps } from "next/app";
-import ContextWrapper from "../components/ContextWrapper";
+import ContextWrapper from "components/ContextWrapper";
 
 import { config } from "@fortawesome/fontawesome-svg-core";
 import "@fortawesome/fontawesome-svg-core/styles.css";
@@ -9,13 +9,13 @@ config.autoAddCss = false;
 
 const queryClient = new QueryClient();
 function MyApp({ Component, pageProps }: AppProps) {
-    return (
-        <ContextWrapper>
-            <QueryClientProvider client={queryClient}>
-                <Component {...pageProps} />
-            </QueryClientProvider>
-        </ContextWrapper>
-    );
+	return (
+		<ContextWrapper>
+			<QueryClientProvider client={queryClient}>
+				<Component {...pageProps} />
+			</QueryClientProvider>
+		</ContextWrapper>
+	);
 }
 
 export default MyApp;

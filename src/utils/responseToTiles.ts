@@ -1,5 +1,5 @@
-import { Tile } from "../components/Carousel";
-import { book } from "../interfaces";
+import { Tile } from "components/Carousel";
+import { book } from "interfaces";
 import defaultCover from "./defaultCover";
 import { supabaseClient } from "./supabaseClient";
 

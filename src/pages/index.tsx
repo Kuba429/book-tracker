@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
-import { RecentlyAddedCarousel } from "../components/Carousel/HomePage/RecentlyAdded";
-import Layout from "../components/Layout";
+import { RecentlyAddedCarousel } from "components/Carousel/HomePage/RecentlyAdded";
+import Layout from "components/Layout";
 
 const Home: NextPage = () => {
 	return (

@@ -1,7 +1,7 @@
 import { ScriptProps } from "next/script";
 import { createContext, Dispatch, SetStateAction, useState } from "react";
 import useDarkMode, { DarkMode } from "use-dark-mode";
-import { userDataInterface } from "../interfaces";
+import { userDataInterface } from "interfaces";
 
 export const UserContext = createContext<{
 	userData: userDataInterface;
