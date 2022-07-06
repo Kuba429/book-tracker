@@ -34,7 +34,7 @@ const Content: React.FC<{ userMail: string }> = ({ userMail }) => {
 				<a className="text-dimmed">{userMail}</a>
 			</Link>
 			<button className="btn" onClick={handleSignOut}>
-				<span>Sing out</span>
+				<span>Sign out</span>
 			</button>
 		</>
 	);

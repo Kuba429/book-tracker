@@ -28,7 +28,7 @@ const ReadBook: React.FC<{
 				.getPublicUrl(readBook.books.cover_path).data?.publicURL;
 			setCoverUrl(data || defaultCover!); // fall back to default cover if needed
 		}
-	}, []);
+	}, [readBook]);
 	return (
 		<div key={readBook.books.id} className="book-card">
 			<img

@@ -18,7 +18,7 @@ export default function Layout({ children }: ScriptProps) {
 	};
 	useEffect(() => {
 		getUserData();
-	}, []);
+	}, []); // linter complains about dependency here but i think it's ok because i only want to call it once and store it in context
 
 	return (
 		<>

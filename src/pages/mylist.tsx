@@ -50,7 +50,7 @@ const ReadBooksContainer: React.FC<{
 				type: ReadBooksKind.SET_BOOKS,
 				payload: { books: data },
 			});
-	}, [data]);
+	}, [data, dispatchBooks]);
 	switch (status) {
 		case "loading":
 			return (

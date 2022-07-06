@@ -19,7 +19,7 @@ const Book: React.FC<{ book: bookInterface; userId: string }> = ({
 				.getPublicUrl(book.cover_path).data?.publicURL;
 			setCoverUrl(data || defaultCover!); // fall back to default cover if needed
 		}
-	}, []);
+	}, [book]);
 	const mutation = useMutation(
 		async () => {
 			// add book to list mutation
