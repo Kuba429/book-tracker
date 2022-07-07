@@ -1,14 +1,9 @@
 import { useQuery } from "react-query";
 import Carousel, { Tile } from "..";
-import {
-	bookResponseToTiles,
-	readBookResponseToTiles,
-} from "utils/responseToTiles";
+import { readBookResponseToTiles } from "utils/responseToTiles";
 import { supabaseClient } from "utils/supabaseClient";
-import { book } from "interfaces";
-import defaultCover from "utils/defaultCover";
 
-export const RecentlyRead = () => {
+export const RecentlyReadCarousel = () => {
 	const { data, status, error } = useQuery<Array<Tile>, Error>(
 		"recently-read-carousel",
 		fetcher
