@@ -90,7 +90,7 @@
 	}
 
 	.carousel {
-		@apply relative w-full min-w-full overflow-hidden p-5;
+		@apply relative w-full min-w-full overflow-hidden px-5;
 		button {
 			@apply absolute z-10 top-1/2 -translate-y-1/2 transition-colors
 				bg-light-600 text-dark-800 dark:bg-dark-600 dark:text-white;

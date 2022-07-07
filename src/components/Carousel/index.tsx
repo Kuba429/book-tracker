@@ -7,31 +7,41 @@ export interface Tile {
 	id: number;
 }
 const TILE_HEIGHT = "h-36"; // set here to make buttons the same height
-const Carousel: FC<{ data: Array<Tile> }> = ({ data }) => {
+const Carousel: FC<{ data: Array<Tile>; header?: string }> = ({
+	data,
+	header,
+}) => {
 	const [page, addPage, subtractPage] = usePage(data.length);
 	return (
-		<div className="carousel">
-			<button
-				onClick={subtractPage}
-				className={`buttonLeft ${TILE_HEIGHT} w-6`}
-			>
-				<FontAwesomeIcon icon={faAngleLeft} />
-			</button>
-			<div
-				className="track"
-				style={{ transform: `translateX(${page * -100}%)` }}
-			>
-				{data.map((x) => (
-					<Tile data={x} key={x.id} />
-				))}
+		<>
+			{header && (
+				<h3 className="text-xl font-bold text-dimmed-always">
+					{header}
+				</h3>
+			)}
+			<div className="carousel">
+				<button
+					onClick={subtractPage}
+					className={`buttonLeft ${TILE_HEIGHT} w-6`}
+				>
+					<FontAwesomeIcon icon={faAngleLeft} />
+				</button>
+				<div
+					className="track"
+					style={{ transform: `translateX(${page * -100}%)` }}
+				>
+					{data.map((x) => (
+						<Tile data={x} key={x.id} />
+					))}
+				</div>
+				<button
+					onClick={addPage}
+					className={`buttonRight ${TILE_HEIGHT} w-6`}
+				>
+					<FontAwesomeIcon icon={faAngleRight} />
+				</button>
 			</div>
-			<button
-				onClick={addPage}
-				className={`buttonRight ${TILE_HEIGHT} w-6`}
-			>
-				<FontAwesomeIcon icon={faAngleRight} />
-			</button>
-		</div>
+		</>
 	);
 };
 export default Carousel;

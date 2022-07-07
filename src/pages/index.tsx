@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import { RecentlyAddedCarousel } from "components/Carousel/HomePage/RecentlyAdded";
 import Layout from "components/Layout";
+import { RecentlyRead } from "components/Carousel/HomePage/RecentlyRead";
 
 const Home: NextPage = () => {
 	return (
@@ -9,6 +10,7 @@ const Home: NextPage = () => {
 				<h1>Home</h1>
 			</header>
 			<RecentlyAddedCarousel />
+			<RecentlyRead />
 		</Layout>
 	);
 };

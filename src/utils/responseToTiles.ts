@@ -1,9 +1,10 @@
 import { Tile } from "components/Carousel";
-import { book } from "interfaces";
+import { book, readBook } from "interfaces";
 import defaultCover from "./defaultCover";
 import { supabaseClient } from "./supabaseClient";
 
-export const responseToTiles = (data: book[]) => {
+export const bookResponseToTiles = (data: book[]) => {
+	// response from "books" table
 	const tiles: Array<Tile> = [];
 	data.forEach(async (row: book) => {
 		const newTile: Tile = {
@@ -13,6 +14,23 @@ export const responseToTiles = (data: book[]) => {
 					.getPublicUrl(row.cover_path).data?.publicURL ??
 				defaultCover!,
 			id: row.id as unknown as number,
+		};
+		tiles.push(newTile);
+	});
+	return tiles;
+};
+
+export const readBookResponseToTiles = (data: readBook[]) => {
+	// response from "read_books" table
+	const tiles: Array<Tile> = [];
+	data.forEach(async (row: readBook) => {
+		const newTile: Tile = {
+			imgUrl:
+				supabaseClient.storage
+					.from("covers")
+					.getPublicUrl(row.books.cover_path).data?.publicURL ??
+				defaultCover!,
+			id: row.books.id as unknown as number,
 		};
 		tiles.push(newTile);
 	});
