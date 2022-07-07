@@ -5,6 +5,7 @@ import { usePage } from "utils/hooks/usePage";
 export interface Tile {
 	imgUrl: string;
 	id: number;
+	uuid: string;
 }
 const TILE_HEIGHT = "h-36"; // set here to make buttons the same height
 const Carousel: FC<{ data: Array<Tile>; header?: string }> = ({
@@ -31,7 +32,7 @@ const Carousel: FC<{ data: Array<Tile>; header?: string }> = ({
 					style={{ transform: `translateX(${page * -100}%)` }}
 				>
 					{data.map((x) => (
-						<Tile data={x} key={x.id} />
+						<Tile data={x} key={x.uuid} />
 					))}
 				</div>
 				<button

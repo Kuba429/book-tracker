@@ -1,5 +1,6 @@
 import { Tile } from "components/Carousel";
 import { book, readBook } from "interfaces";
+import { v4 } from "uuid";
 import defaultCover from "./defaultCover";
 import { supabaseClient } from "./supabaseClient";
 
@@ -14,6 +15,7 @@ export const bookResponseToTiles = (data: book[]) => {
 					.getPublicUrl(row.cover_path).data?.publicURL ??
 				defaultCover!,
 			id: row.id as unknown as number,
+			uuid: v4(),
 		};
 		tiles.push(newTile);
 	});
@@ -31,6 +33,7 @@ export const readBookResponseToTiles = (data: readBook[]) => {
 					.getPublicUrl(row.books.cover_path).data?.publicURL ??
 				defaultCover!,
 			id: row.books.id as unknown as number,
+			uuid: v4(),
 		};
 		tiles.push(newTile);
 	});
