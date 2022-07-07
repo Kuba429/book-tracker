@@ -68,17 +68,16 @@ const ReadBooksContainer: React.FC<{
 			if (books.length > 0) {
 				return (
 					<div className="grid lg:grid-cols-3 grid-cols-1 sm:grid-cols-2 gap-2">
-						{books.length > 0 &&
-							books.map((b) => {
-								return (
-									<ReadBook
-										readBook={b}
-										setModalState={setModalState}
-										dispatchBooks={dispatchBooks}
-										key={b.id}
-									/>
-								);
-							})}
+						{books.map((b) => {
+							return (
+								<ReadBook
+									readBook={b}
+									setModalState={setModalState}
+									dispatchBooks={dispatchBooks}
+									key={b.id}
+								/>
+							);
+						})}
 					</div>
 				);
 			} else {
@@ -92,6 +91,7 @@ const ReadBooksContainer: React.FC<{
 	}
 };
 const fetchReadBooks = async () => {
+	const userId = await supabaseClient.auth.user()?.id;
 	const res = await supabaseClient
 		.from("read_books")
 		.select(
@@ -103,6 +103,7 @@ const fetchReadBooks = async () => {
                 )
             `
 		)
+		.eq("user_id", userId)
 		.order("updated_at", { ascending: false });
 	if (res.error) throw new Error(res.error.message);
 	return res.data;
