@@ -90,16 +90,16 @@
 	}
 
 	.carousel {
-		@apply relative w-full min-w-full overflow-hidden px-5;
+		@apply relative w-full min-w-full px-5;
 		button {
 			@apply absolute z-10 top-1/2 -translate-y-1/2 transition-colors
 				bg-light-600 text-dark-800 dark:bg-dark-600 dark:text-white;
 		}
 		.buttonLeft {
-			@apply left-0;
+			@apply left-0 rounded-l -translate-x-1;
 		}
 		.buttonRight {
-			@apply right-0;
+			@apply right-0 rounded-r translate-x-1;
 		}
 		.track {
 			@apply w-full flex transition-all;
