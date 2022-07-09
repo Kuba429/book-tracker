@@ -1,5 +1,6 @@
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Link from "next/link";
 import React, { FC } from "react";
 import { usePage } from "utils/hooks/usePage";
 export interface Tile {
@@ -54,11 +55,15 @@ export default Carousel;
 const Tile: React.FC<{ data: Tile }> = ({ data }) => {
 	return (
 		<div className="tile">
-			<img
-				className={`object-contain m-auto w-24 ${TILE_HEIGHT} rounded`}
-				src={data.imgUrl}
-				alt={data.id as unknown as string}
-			/>
+			<Link href={`/book/${data.id}`}>
+				<a>
+					<img
+						className={`cursor-pointer object-contain m-auto w-24 ${TILE_HEIGHT} rounded`}
+						src={data.imgUrl}
+						alt={data.id as unknown as string}
+					/>
+				</a>
+			</Link>
 		</div>
 	);
 };
