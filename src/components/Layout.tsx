@@ -23,7 +23,7 @@ export default function Layout({ children }: ScriptProps) {
 	return (
 		<>
 			<div
-				className={`h-full md:flex min-h-screen bg-light-800 dark:bg-dark-800 transition-colors`}
+				className={`h-full md:flex min-h-screen bg-light-800 dark:bg-dark-800 text-dark-800 dark:text-white transition-colors`}
 			>
 				<Navbar userMail={context!.userData.email} />
 				<main className="w-11/12 mx-auto pb-2 px-0 md:px-3">
