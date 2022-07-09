@@ -55,7 +55,7 @@ const Tile: React.FC<{ data: Tile }> = ({ data }) => {
 	return (
 		<div className="tile">
 			<img
-				className={`object-contain ${TILE_HEIGHT} rounded`}
+				className={`object-contain m-auto w-24 ${TILE_HEIGHT} rounded`}
 				src={data.imgUrl}
 				alt={data.id as unknown as string}
 			/>
