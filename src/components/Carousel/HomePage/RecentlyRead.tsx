@@ -13,6 +13,7 @@ export const RecentlyReadCarousel = () => {
 	return <p>WORK IN PROGRESS</p>;
 };
 const fetcher = async () => {
+	const userId = supabaseClient.auth.user()?.id;
 	const res = await supabaseClient
 		.from("read_books")
 		.select(
@@ -24,6 +25,7 @@ const fetcher = async () => {
                 )
             `
 		)
+		.eq("user_id", userId)
 		.limit(23) // 24 with "see more" tile; 24 is divisible by 3, 4 and 8 which are the possible numbers of tiles on screen
 		.order("updated_at", { ascending: false });
 	if (res.error) throw new Error(res.error.message);
