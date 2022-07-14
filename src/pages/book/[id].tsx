@@ -1,8 +1,11 @@
+import { AddButton } from "components/AddButton";
+import { UserContext } from "components/ContextWrapper";
 import Layout from "components/Layout";
 import { book } from "interfaces";
 import { useRouter } from "next/router";
-import { FC } from "react";
+import { FC, useContext } from "react";
 import { useQuery, UseQueryResult } from "react-query";
+import defaultCover from "utils/defaultCover";
 import { supabaseClient } from "utils/supabaseClient";
 
 const BookById = () => {
@@ -35,11 +38,37 @@ const NestedWrapper: FC<{ query: UseQueryResult<book> }> = ({ query }) => {
 };
 
 const NestedOnSuccess: FC<{ data: book }> = ({ data }) => {
+	const coverUrl = supabaseClient.storage
+		.from("covers")
+		.getPublicUrl(data.cover_path).data?.publicURL;
+	const { id } = useContext(UserContext)?.userData!; // at this point user would have been redirected to login screen if they hadn't been logged in
 	return (
 		<>
 			<header className="page-header">
 				<h1>{data.title}</h1>
 			</header>
+			<div className="sm:flex w-full gap-2">
+				<img
+					className="object-contain max-h-screen w-full m-auto sm:h-auto sm:w-80 sm:m-0"
+					src={coverUrl || defaultCover}
+				/>
+				<div className="text-lg flex flex-col justify-between">
+					<p className="mb-5">
+						<span className="text-dimmed-always"> Title:</span>{" "}
+						{data.title} <br />
+						<span className="text-dimmed-always">Author:</span>{" "}
+						{data.author} <br />
+						<span className="text-dimmed-always"> Pages:</span>{" "}
+						{data.pages} <br />
+					</p>
+					<AddButton
+						userId={id}
+						book={data}
+						customClass="mb-2"
+						customSpanClass="w-full"
+					/>
+				</div>
+			</div>
 		</>
 	);
 };

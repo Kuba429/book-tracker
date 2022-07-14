@@ -3,10 +3,12 @@ import { FC } from "react";
 import { useMutation } from "react-query";
 import { supabaseClient } from "utils/supabaseClient";
 
-export const AddButton: FC<{ book: book; userId: string }> = ({
-	book,
-	userId,
-}) => {
+export const AddButton: FC<{
+	book: book;
+	userId: string;
+	customClass?: string;
+	customSpanClass?: string;
+}> = ({ book, userId, customClass, customSpanClass }) => {
 	const mutation = useMutation(
 		async () => {
 			// add book to list mutation
@@ -34,13 +36,27 @@ export const AddButton: FC<{ book: book; userId: string }> = ({
 		<button
 			className={`${
 				mutation.isError ? "btn-danger" : "btn-primary" // apply danger class when error
-			} group disabled:after:bg-gray-400`}
+			}
+				group disabled:after:bg-gray-400
+				${
+					// add custom class if passed in props
+					customClass ? customClass : ""
+				}
+
+				`}
 			disabled={
 				mutation.status == "success" || mutation.status == "loading"
 			}
 			onClick={() => mutation.mutate()}
 		>
-			<span className="group-disabled:bg-gray-300 group-disabled:text-gray-700">
+			<span
+				className={`group-disabled:bg-gray-300 group-disabled:text-gray-700
+					${
+						// add custom class if passed in props
+						customSpanClass ? customSpanClass : ""
+					}
+				`}
+			>
 				{mutation.status == "success" // give text appropriate to mutation status
 					? "Added"
 					: mutation.status == "loading"
