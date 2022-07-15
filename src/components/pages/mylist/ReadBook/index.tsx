@@ -6,8 +6,8 @@ import defaultCover from "utils/defaultCover";
 import {
 	ReadBooksAction,
 	ReadBooksKind,
-} from "../../../../utils/hooks/useReadBooksReducer";
-import { supabaseClient } from "../../../../utils/supabaseClient";
+} from "utils/hooks/useReadBooksReducer";
+import { supabaseClient } from "utils/supabaseClient";
 
 const ReadBook: React.FC<{
 	readBook: readBookInterface;
