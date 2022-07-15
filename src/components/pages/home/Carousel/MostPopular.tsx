@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import Carousel, { Tile } from "..";
+import Carousel, { Tile } from "../../../shared/Carousel";
 import { bookResponseToTiles } from "utils/responseToTiles";
 import { supabaseClient } from "utils/supabaseClient";
 

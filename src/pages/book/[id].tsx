@@ -1,5 +1,5 @@
-import { AddButton } from "components/AddButton";
-import { UserContext } from "components/ContextWrapper";
+import { AddButton } from "components/shared/AddButton";
+import { UserContext } from "components/Layout/ContextWrapper";
 import Layout from "components/Layout";
 import { book } from "interfaces";
 import { useRouter } from "next/router";

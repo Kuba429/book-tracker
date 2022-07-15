@@ -5,8 +5,8 @@ import {
 	useEffect,
 	useState,
 } from "react";
-import ReadBook from "components/ReadBook";
-import UpdateProgressModal from "components/ReadBook/UpdateProgressModal";
+import ReadBook from "components/pages/mylist/ReadBook";
+import UpdateProgressModal from "components/pages/mylist/ReadBook/UpdateProgressModal";
 import Layout from "components/Layout";
 import { readBook } from "interfaces";
 import {
@@ -16,7 +16,7 @@ import {
 } from "utils/hooks/useReadBooksReducer";
 import { supabaseClient } from "utils/supabaseClient";
 import { useQuery } from "react-query";
-import { UserContext } from "components/ContextWrapper";
+import { UserContext } from "components/Layout/ContextWrapper";
 
 export default function List() {
 	const [books, dispatchBooks] = useReadBooksReducer();

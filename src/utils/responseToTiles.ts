@@ -1,4 +1,4 @@
-import { Tile } from "components/Carousel";
+import { Tile } from "components/shared/Carousel";
 import { book, readBook } from "interfaces";
 import { v4 } from "uuid";
 import defaultCover from "./defaultCover";

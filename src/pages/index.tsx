@@ -1,8 +1,8 @@
 import type { NextPage } from "next";
-import { RecentlyAddedCarousel } from "components/Carousel/HomePage/RecentlyAdded";
+import { RecentlyAddedCarousel } from "components/pages/home/Carousel/RecentlyAdded";
 import Layout from "components/Layout";
-import { RecentlyReadCarousel } from "components/Carousel/HomePage/RecentlyRead";
-import { MostPopularCarousel } from "components/Carousel/HomePage/MostPopular";
+import { RecentlyReadCarousel } from "components/pages/home/Carousel/RecentlyRead";
+import { MostPopularCarousel } from "components/pages/home/Carousel/MostPopular";
 
 const Home: NextPage = () => {
 	return (

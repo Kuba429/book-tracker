@@ -2,8 +2,8 @@ import React, { useContext, useEffect } from "react";
 import Layout from "components/Layout";
 import { supabaseClient } from "utils/supabaseClient";
 import { book } from "interfaces";
-import Book from "components/Book";
-import { UserContext } from "components/ContextWrapper";
+import Book from "components/pages/books/Book";
+import { UserContext } from "components/Layout/ContextWrapper";
 import Link from "next/link";
 import { useQuery } from "react-query";
 

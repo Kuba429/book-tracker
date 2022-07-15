@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { book as bookInterface } from "interfaces";
 import defaultCover from "utils/defaultCover";
 import { supabaseClient } from "utils/supabaseClient";
-import { AddButton } from "./AddButton";
+import { AddButton } from "../../shared/AddButton";
 
 const Book: React.FC<{ book: bookInterface; userId: string }> = ({
 	book,
