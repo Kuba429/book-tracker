@@ -1,4 +1,10 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import {
+	Dispatch,
+	SetStateAction,
+	useContext,
+	useEffect,
+	useState,
+} from "react";
 import ReadBook from "components/ReadBook";
 import UpdateProgressModal from "components/ReadBook/UpdateProgressModal";
 import Layout from "components/Layout";
@@ -10,10 +16,15 @@ import {
 } from "utils/hooks/useReadBooksReducer";
 import { supabaseClient } from "utils/supabaseClient";
 import { useQuery } from "react-query";
+import { UserContext } from "components/ContextWrapper";
 
 export default function List() {
 	const [books, dispatchBooks] = useReadBooksReducer();
 	const [modalState, setModalState] = useState<boolean | readBook>(false);
+	const context = useContext(UserContext);
+	useEffect(() => {
+		context?.setAddedBooksIds(books.map((b) => b.books.id.toString()));
+	}, [books]);
 	return (
 		<Layout>
 			<header className="page-header">

@@ -41,7 +41,7 @@ const NestedOnSuccess: FC<{ data: book }> = ({ data }) => {
 	const coverUrl = supabaseClient.storage
 		.from("covers")
 		.getPublicUrl(data.cover_path).data?.publicURL;
-	const { id } = useContext(UserContext)?.userData!; // at this point user would have been redirected to login screen if they hadn't been logged in
+	const context = useContext(UserContext);
 	return (
 		<>
 			<header className="page-header">
@@ -61,12 +61,26 @@ const NestedOnSuccess: FC<{ data: book }> = ({ data }) => {
 						<span className="text-dimmed-always"> Pages:</span>{" "}
 						{data.pages} <br />
 					</p>
-					<AddButton
-						userId={id}
-						book={data}
-						customClass="mb-2"
-						customSpanClass="w-full"
-					/>
+					{(context?.addedBooksIds || []).includes(
+						data.id.toString()
+					) ? (
+						<button
+							disabled
+							className="mb-2 btn group disabled:after:bg-gray-400
+						"
+						>
+							<span className="w-full group-disabled:bg-gray-300 group-disabled:text-gray-700">
+								Added
+							</span>
+						</button>
+					) : (
+						<AddButton
+							userId={context?.userData.id!} // at this point user would have been redirected to login screen if they hadn't been logged in
+							book={data}
+							customClass="mb-2"
+							customSpanClass="w-full"
+						/>
+					)}
 				</div>
 			</div>
 		</>

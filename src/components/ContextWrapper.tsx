@@ -7,6 +7,8 @@ export const UserContext = createContext<{
 	userData: userDataInterface;
 	setUserData: Dispatch<SetStateAction<userDataInterface>>;
 	darkMode: DarkMode;
+	addedBooksIds: Array<string>;
+	setAddedBooksIds: Dispatch<SetStateAction<string[]>>;
 } | null>(null);
 
 export default function ContextWrapper({ children }: ScriptProps) {
@@ -14,14 +16,22 @@ export default function ContextWrapper({ children }: ScriptProps) {
 		email: "",
 		id: "",
 	});
-
+	const [addedBooksIds, setAddedBooksIds] = useState<Array<string>>([]);
 	let darkMode = useDarkMode(false, {
 		classNameDark: "dark",
 		classNameLight: "light",
 	});
 
 	return (
-		<UserContext.Provider value={{ userData, setUserData, darkMode }}>
+		<UserContext.Provider
+			value={{
+				userData,
+				setUserData,
+				darkMode,
+				addedBooksIds,
+				setAddedBooksIds,
+			}}
+		>
 			{children}
 		</UserContext.Provider>
 	);
