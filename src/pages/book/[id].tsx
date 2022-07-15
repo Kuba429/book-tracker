@@ -47,7 +47,7 @@ const NestedOnSuccess: FC<{ data: book }> = ({ data }) => {
 			<header className="page-header">
 				<h1>{data.title}</h1>
 			</header>
-			<div className="sm:flex w-full gap-2">
+			<div className="sm:flex w-full justify-evenly gap-2">
 				<img
 					className="object-contain max-h-screen w-full m-auto sm:h-auto sm:w-80 sm:m-0"
 					src={coverUrl || defaultCover}
