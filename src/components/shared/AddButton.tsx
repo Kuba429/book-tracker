@@ -47,7 +47,10 @@ export const AddButton: FC<{
 			disabled={
 				mutation.status == "success" || mutation.status == "loading"
 			}
-			onClick={() => mutation.mutate()}
+			onClick={(e) => {
+				e.preventDefault(); // this button may be nested inside a link
+				mutation.mutate();
+			}}
 		>
 			<span
 				className={`group-disabled:bg-gray-300 group-disabled:text-gray-700

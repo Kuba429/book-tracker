@@ -8,6 +8,7 @@ import {
 	ReadBooksKind,
 } from "utils/hooks/useReadBooksReducer";
 import { supabaseClient } from "utils/supabaseClient";
+import Link from "next/link";
 
 const ReadBook: React.FC<{
 	readBook: readBookInterface;
@@ -30,44 +31,48 @@ const ReadBook: React.FC<{
 		}
 	}, [readBook]);
 	return (
-		<div key={readBook.books.id} className="book-card">
-			<img
-				className="object-contain w-24 h-36"
-				src={coverUrl}
-				alt="Book cover"
-			/>
-			<div>
-				<p>{readBook.books.title}</p>
-				<p>{readBook.books.author}</p>
-				<p>last read page: {readBook.last_read_page}</p>
+		<Link href={`/book/${readBook.books.id}`}>
+			<a key={readBook.books.id} className="book-card">
+				<img
+					className="object-contain w-24 h-36"
+					src={coverUrl}
+					alt="Book cover"
+				/>
 				<div>
-					<button
-						onClick={() => {
-							setModalState(readBook);
-						}}
-						className="btn-primary"
-					>
-						<span>Update</span>
-					</button>
-					<button
-						onClick={() => {
-							if (
-								!confirm(
-									`This is going to delete "${readBook.books.title}" from your list along with your progress`
+					<p>{readBook.books.title}</p>
+					<p>{readBook.books.author}</p>
+					<p>last read page: {readBook.last_read_page}</p>
+					<div>
+						<button
+							onClick={(e) => {
+								e.preventDefault();
+								setModalState(readBook);
+							}}
+							className="btn-primary"
+						>
+							<span>Update</span>
+						</button>
+						<button
+							onClick={(e) => {
+								e.preventDefault();
+								if (
+									!confirm(
+										`This is going to delete "${readBook.books.title}" from your list along with your progress`
+									)
 								)
-							)
-								return;
-							removeReadBook(readBook.id, dispatchBooks);
-						}}
-						className="btn-danger"
-					>
-						<span>
-							<FontAwesomeIcon icon={faX} />
-						</span>
-					</button>
+									return;
+								removeReadBook(readBook.id, dispatchBooks);
+							}}
+							className="btn-danger"
+						>
+							<span>
+								<FontAwesomeIcon icon={faX} />
+							</span>
+						</button>
+					</div>
 				</div>
-			</div>
-		</div>
+			</a>
+		</Link>
 	);
 };
 export default ReadBook;
