@@ -14,7 +14,6 @@ import {
 	ReadBooksKind,
 	useReadBooksReducer,
 } from "utils/hooks/useReadBooksReducer";
-import { supabaseClient } from "supabase/client";
 import { useQuery } from "react-query";
 import { UserContext } from "components/Layout/ContextWrapper";
 import { fetchReadBooks } from "supabase/fetch/fetchReadBooks";
@@ -24,7 +23,7 @@ export default function List() {
 	const [modalState, setModalState] = useState<boolean | readBook>(false);
 	const context = useContext(UserContext);
 	useEffect(() => {
-		context?.setAddedBooksIds(books.map((b) => b.books.id.toString()));
+		context?.setAddedBooksIDs(books.map((b) => b.books.id.toString()));
 	}, [books]);
 	return (
 		<Layout>

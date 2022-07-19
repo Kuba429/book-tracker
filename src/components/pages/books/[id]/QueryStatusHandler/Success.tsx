@@ -1,7 +1,7 @@
 import { UserContext } from "components/Layout/ContextWrapper";
 import { AddButton } from "components/shared/AddButton";
 import { book } from "interfaces";
-import { FC, useContext } from "react";
+import { FC, useContext, useEffect } from "react";
 import defaultCover from "supabase/defaultCover";
 import { supabaseClient } from "supabase/client";
 
@@ -10,6 +10,9 @@ export const Success: FC<{ data: book }> = ({ data }) => {
 		.from("covers")
 		.getPublicUrl(data.cover_path).data?.publicURL;
 	const context = useContext(UserContext);
+	useEffect(() => {
+		context?.refetchReadIDs();
+	}, []);
 	return (
 		<>
 			<header className="page-header">
@@ -29,7 +32,7 @@ export const Success: FC<{ data: book }> = ({ data }) => {
 						<span className="text-dimmed-always"> Pages:</span>{" "}
 						{data.pages} <br />
 					</p>
-					{(context?.addedBooksIds || []).includes(
+					{(context?.addedBooksIDs || []).includes(
 						data.id.toString()
 					) ? (
 						<button
