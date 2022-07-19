@@ -1,8 +1,8 @@
 import { Tile } from "components/shared/Carousel";
 import { book, readBook } from "interfaces";
 import { v4 } from "uuid";
-import defaultCover from "./defaultCover";
-import { supabaseClient } from "./supabaseClient";
+import defaultCover from "supabase/defaultCover";
+import { supabaseClient } from "supabase/client";
 
 export const bookResponseToTiles = (data: book[]) => {
 	// response from "books" table

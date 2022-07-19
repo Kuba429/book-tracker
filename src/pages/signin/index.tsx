@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { FormEvent } from "react";
-import { supabaseClient } from "utils/supabaseClient";
+import { supabaseClient } from "supabase/client";
 
 export default function SignIn() {
 	const router = useRouter();

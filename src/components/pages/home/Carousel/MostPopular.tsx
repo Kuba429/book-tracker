@@ -1,7 +1,7 @@
 import { useQuery } from "react-query";
 import Carousel, { Tile } from "components/shared/Carousel";
-import { bookResponseToTiles } from "utils/responseToTiles";
-import { supabaseClient } from "utils/supabaseClient";
+import { bookResponseToTiles } from "components/shared/Carousel/responseToTiles";
+import { supabaseClient } from "supabase/client";
 
 export const MostPopularCarousel = () => {
 	const { data, status, error } = useQuery<Array<Tile>, Error>(

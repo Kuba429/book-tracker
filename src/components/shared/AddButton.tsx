@@ -1,7 +1,7 @@
 import { book } from "interfaces";
 import { FC } from "react";
 import { useMutation } from "react-query";
-import { supabaseClient } from "utils/supabaseClient";
+import { supabaseClient } from "supabase/client";
 
 export const AddButton: FC<{
 	book: book;

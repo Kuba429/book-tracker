@@ -14,9 +14,10 @@ import {
 	ReadBooksKind,
 	useReadBooksReducer,
 } from "utils/hooks/useReadBooksReducer";
-import { supabaseClient } from "utils/supabaseClient";
+import { supabaseClient } from "supabase/client";
 import { useQuery } from "react-query";
 import { UserContext } from "components/Layout/ContextWrapper";
+import { fetchReadBooks } from "supabase/fetch/fetchReadBooks";
 
 export default function List() {
 	const [books, dispatchBooks] = useReadBooksReducer();
@@ -100,22 +101,4 @@ const ReadBooksContainer: React.FC<{
 				);
 			}
 	}
-};
-const fetchReadBooks = async () => {
-	const userId = await supabaseClient.auth.user()?.id;
-	const res = await supabaseClient
-		.from("read_books")
-		.select(
-			`
-                last_read_page,
-                id,
-                books (
-                    *
-                )
-            `
-		)
-		.eq("user_id", userId)
-		.order("updated_at", { ascending: false });
-	if (res.error) throw new Error(res.error.message);
-	return res.data;
 };

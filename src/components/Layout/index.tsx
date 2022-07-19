@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import { ScriptProps } from "next/script";
 import { useContext, useEffect } from "react";
-import { supabaseClient } from "utils/supabaseClient";
+import { supabaseClient } from "supabase/client";
 import { UserContext } from "./ContextWrapper";
 import Navbar from "./Navbar/index";
 

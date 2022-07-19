@@ -1,7 +1,7 @@
 import { FormEvent } from "react";
 import Layout from "components/Layout";
 import Compress from "compress.js";
-import { supabaseClient } from "utils/supabaseClient";
+import { supabaseClient } from "supabase/client";
 import { v4 } from "uuid";
 import { useMutation } from "react-query";
 import { useRouter } from "next/router";

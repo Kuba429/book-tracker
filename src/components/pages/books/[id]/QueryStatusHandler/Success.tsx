@@ -2,8 +2,8 @@ import { UserContext } from "components/Layout/ContextWrapper";
 import { AddButton } from "components/shared/AddButton";
 import { book } from "interfaces";
 import { FC, useContext } from "react";
-import defaultCover from "utils/defaultCover";
-import { supabaseClient } from "utils/supabaseClient";
+import defaultCover from "supabase/defaultCover";
+import { supabaseClient } from "supabase/client";
 
 export const Success: FC<{ data: book }> = ({ data }) => {
 	const coverUrl = supabaseClient.storage

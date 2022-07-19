@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { book as bookInterface } from "interfaces";
-import defaultCover from "utils/defaultCover";
-import { supabaseClient } from "utils/supabaseClient";
+import defaultCover from "supabase/defaultCover";
+import { supabaseClient } from "supabase/client";
 import { AddButton } from "components/shared/AddButton";
 import Link from "next/link";
 

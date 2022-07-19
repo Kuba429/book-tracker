@@ -2,12 +2,12 @@ import { faX } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
 import { readBook, readBook as readBookInterface } from "interfaces";
-import defaultCover from "utils/defaultCover";
+import defaultCover from "supabase/defaultCover";
 import {
 	ReadBooksAction,
 	ReadBooksKind,
 } from "utils/hooks/useReadBooksReducer";
-import { supabaseClient } from "utils/supabaseClient";
+import { supabaseClient } from "supabase/client";
 import Link from "next/link";
 
 const ReadBook: React.FC<{

@@ -5,7 +5,7 @@ import {
 	ReadBooksAction,
 	ReadBooksKind,
 } from "utils/hooks/useReadBooksReducer";
-import { supabaseClient } from "utils/supabaseClient";
+import { supabaseClient } from "supabase/client";
 
 const UpdateProgressModal: React.FC<{
 	setModalState: Dispatch<SetStateAction<readBook | boolean>>;

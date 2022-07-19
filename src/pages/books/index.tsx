@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
 import Layout from "components/Layout";
-import { supabaseClient } from "utils/supabaseClient";
 import { book } from "interfaces";
 import Book from "components/pages/books/index/Book";
 import { UserContext } from "components/Layout/ContextWrapper";
 import Link from "next/link";
 import { useQuery } from "react-query";
+import { fetchBooks } from "supabase/fetch/fetchBooks";
 
 export default function Books() {
 	return (
@@ -26,15 +26,7 @@ const BooksContainer = () => {
 	const context = useContext(UserContext);
 	const { isLoading, isError, data, error } = useQuery<Array<book>, Error>(
 		"books",
-		async () => {
-			const userId = await supabaseClient.auth.user()?.id;
-			const res = await supabaseClient
-				.from("books")
-				.select("id,title,author,pages,language,cover_path")
-				.or(`added_by.eq.${userId},approved.eq.true`);
-			if (res.error) throw new Error(res.error.message);
-			return res.data;
-		}
+		fetchBooks
 	);
 	if (isLoading)
 		return (

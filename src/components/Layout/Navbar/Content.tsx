@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { supabaseClient } from "utils/supabaseClient";
+import { supabaseClient } from "supabase/client";
 import ThemeSwitcher from "components/shared/ThemeSwitcher";
 
 const Content: React.FC<{ userMail: string }> = ({ userMail }) => {
