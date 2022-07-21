@@ -10,7 +10,7 @@ import { supabaseClient } from "supabase/client";
 const UpdateProgressModal: React.FC<{
 	setModalState: Dispatch<SetStateAction<readBook | boolean>>;
 	modalState: readBook;
-	dispatchBooks: Dispatch<ReadBooksAction>;
+	dispatchBooks?: Dispatch<ReadBooksAction>;
 }> = ({ setModalState, modalState, dispatchBooks }) => {
 	const [newPage, setNewPage] = useState(modalState.last_read_page);
 	const mutation = useMutation(
@@ -26,11 +26,12 @@ const UpdateProgressModal: React.FC<{
 		},
 		{
 			onSuccess(data, variables, context) {
-				dispatchBooks({
-					// update read books state to display updated progress without refetching
-					type: ReadBooksKind.UPDATE_PROGRESS,
-					payload: { id: modalState.id, lastReadPage: variables },
-				});
+				dispatchBooks &&
+					dispatchBooks({
+						// update read books state to display updated progress without refetching
+						type: ReadBooksKind.UPDATE_PROGRESS,
+						payload: { id: modalState.id, lastReadPage: variables },
+					});
 				setModalState(false);
 			},
 		}

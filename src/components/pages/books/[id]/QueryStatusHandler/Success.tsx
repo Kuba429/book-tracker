@@ -4,6 +4,8 @@ import { book } from "interfaces";
 import { FC, useContext, useEffect } from "react";
 import defaultCover from "supabase/defaultCover";
 import { supabaseClient } from "supabase/client";
+import ReadBookButtons from "components/shared/ReadBookButtons";
+import ReadBookButtonsWrapper from "./ReadBookButtonsWrapper";
 
 export const Success: FC<{ data: book }> = ({ data }) => {
 	const coverUrl = supabaseClient.storage
@@ -35,15 +37,7 @@ export const Success: FC<{ data: book }> = ({ data }) => {
 					{(context?.addedBooksIDs || []).includes(
 						data.id.toString()
 					) ? (
-						<button
-							disabled
-							className="mb-2 btn group disabled:after:bg-gray-400
-						"
-						>
-							<span className="w-full group-disabled:bg-gray-300 group-disabled:text-gray-700">
-								Added
-							</span>
-						</button>
+						data && <ReadBookButtonsWrapper bookID={data.id} />
 					) : (
 						<AddButton
 							userId={context?.userData.id!} // at this point user would have been redirected to login screen if they hadn't been logged in

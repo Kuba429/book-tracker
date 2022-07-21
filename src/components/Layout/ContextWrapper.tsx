@@ -31,16 +31,12 @@ export default function ContextWrapper({ children }: ScriptProps) {
 			"user_id",
 			userData.id,
 		]);
-		console.log(res);
 		setAddedBooksIDs(res.map((x) => x.books.id.toString()));
 	};
 	let darkMode = useDarkMode(false, {
 		classNameDark: "dark",
 		classNameLight: "light",
 	});
-	useEffect(() => {
-		console.log(addedBooksIDs);
-	}, [addedBooksIDs]);
 	return (
 		<UserContext.Provider
 			value={{
