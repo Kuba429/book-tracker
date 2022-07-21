@@ -1,6 +1,12 @@
 import { faX } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React, { Dispatch, SetStateAction, useEffect, useState } from "react";
+import React, {
+	Dispatch,
+	SetStateAction,
+	useContext,
+	useEffect,
+	useState,
+} from "react";
 import { readBook, readBook as readBookInterface } from "interfaces";
 import defaultCover from "supabase/defaultCover";
 import {
@@ -9,6 +15,8 @@ import {
 } from "utils/hooks/useReadBooksReducer";
 import { supabaseClient } from "supabase/client";
 import Link from "next/link";
+import { useMutation } from "react-query";
+import { UserContext } from "components/Layout/ContextWrapper";
 
 const ReadBook: React.FC<{
 	readBook: readBookInterface;
@@ -16,6 +24,7 @@ const ReadBook: React.FC<{
 	setModalState: Dispatch<SetStateAction<boolean | readBook>>;
 }> = ({ readBook, setModalState, dispatchBooks }) => {
 	const [coverUrl, setCoverUrl] = useState("");
+	const context = useContext(UserContext);
 	useEffect(() => {
 		// fetching book cover url; falling back to the default one, fetched ahead of time to avoid unnecessary requests
 		if (
@@ -30,6 +39,26 @@ const ReadBook: React.FC<{
 			setCoverUrl(data || defaultCover!); // fall back to default cover if needed
 		}
 	}, [readBook]);
+	const mutation = useMutation(
+		async () => {
+			const res = await supabaseClient
+				.from("read_books")
+				.delete()
+				.eq("id", readBook.id);
+			if (res.error) throw new Error(res.error.message);
+		},
+		{
+			onSuccess: () => {
+				dispatchBooks({
+					type: ReadBooksKind.REMOVE_BOOK,
+					payload: { id: readBook.id },
+				});
+				context?.setAddedBooksIDs((state) => {
+					return state!.filter((x) => x !== readBook.books.id);
+				});
+			},
+		}
+	);
 	return (
 		<Link href={`/book/${readBook.books.id}`}>
 			<a key={readBook.books.id} className="book-card">
@@ -61,7 +90,7 @@ const ReadBook: React.FC<{
 									)
 								)
 									return;
-								removeReadBook(readBook.id, dispatchBooks);
+								mutation.mutate();
 							}}
 							className="btn-danger"
 						>
@@ -76,20 +105,3 @@ const ReadBook: React.FC<{
 	);
 };
 export default ReadBook;
-
-const removeReadBook = async (
-	id: string,
-	dispatchBooks: Dispatch<ReadBooksAction>
-) => {
-	try {
-		const res = await supabaseClient
-			.from("read_books")
-			.delete()
-			.eq("id", id);
-		if (res.error) throw new Error(res.error.message);
-		console.log(res);
-		dispatchBooks({ type: ReadBooksKind.REMOVE_BOOK, payload: { id } });
-	} catch (error) {
-		console.log(error);
-	}
-};
