@@ -1,5 +1,6 @@
+import { UserContext } from "components/Layout/ContextWrapper";
 import { book } from "interfaces";
-import { FC } from "react";
+import { FC, useContext } from "react";
 import { useMutation } from "react-query";
 import { supabaseClient } from "supabase/client";
 
@@ -9,6 +10,7 @@ export const AddButton: FC<{
 	customClass?: string;
 	customSpanClass?: string;
 }> = ({ book, userId, customClass, customSpanClass }) => {
+	const context = useContext(UserContext);
 	const mutation = useMutation(
 		async () => {
 			// add book to list mutation
@@ -30,7 +32,12 @@ export const AddButton: FC<{
 			]);
 			if (res.error) throw new Error(res.error.message);
 		},
-		{ onError: (e) => alert(e) }
+		{
+			onSuccess: () => {
+				context?.setAddedBooksIDs((state) => [...state!, book.id]);
+			},
+			onError: (e) => alert(e),
+		}
 	);
 	return (
 		<button
