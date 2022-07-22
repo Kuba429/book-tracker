@@ -39,11 +39,13 @@ const ReadBook: React.FC<{
 					<p>{readBook.books.title}</p>
 					<p>{readBook.books.author}</p>
 					<p>last read page: {readBook.last_read_page}</p>
-					<ReadBookButtons
-						readBook={readBook}
-						dispatchBooks={dispatchBooks}
-						setModalState={setModalState}
-					/>
+					<div>
+						<ReadBookButtons
+							readBook={readBook}
+							dispatchBooks={dispatchBooks}
+							setModalState={setModalState}
+						/>
+					</div>
 				</div>
 			</a>
 		</Link>

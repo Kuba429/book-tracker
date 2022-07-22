@@ -25,10 +25,13 @@ const ReadBookButtonsWrapper: FC<{ bookID: string }> = ({ bookID }) => {
 	return (
 		<>
 			{isSuccess && data && (
-				<ReadBookButtons
-					setModalState={setModalState}
-					readBook={data as readBook}
-				/>
+				<div className="mb-2 flex w-full gap-2">
+					<ReadBookButtons
+						setModalState={setModalState}
+						readBook={data as readBook}
+						isFullWidth
+					/>
+				</div>
 			)}
 			{modalState && (
 				<UpdateProgressModal

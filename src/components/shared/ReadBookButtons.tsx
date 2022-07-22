@@ -11,10 +11,12 @@ import {
 } from "utils/hooks/useReadBooksReducer";
 import { readBook as readBookInterface } from "interfaces";
 const ReadBookButtons: React.FC<{
+	// this component is meant to be wrapped by a container element. The container isn't a part of this component because it's desired layout may differ depending on the parent component
 	readBook: readBookInterface;
 	dispatchBooks?: Dispatch<ReadBooksAction>;
 	setModalState: Dispatch<SetStateAction<boolean | readBook>>;
-}> = ({ readBook, setModalState, dispatchBooks }) => {
+	isFullWidth?: boolean;
+}> = ({ readBook, setModalState, dispatchBooks, isFullWidth }) => {
 	const context = useContext(UserContext);
 	const mutation = useMutation(
 		async () => {
@@ -38,13 +40,13 @@ const ReadBookButtons: React.FC<{
 		}
 	);
 	return (
-		<div>
+		<>
 			<button
 				onClick={(e) => {
 					e.preventDefault();
 					setModalState(readBook);
 				}}
-				className="btn-primary"
+				className={`btn-primary ${isFullWidth && "w-full"}`}
 			>
 				<span>Update</span>
 			</button>
@@ -65,7 +67,7 @@ const ReadBookButtons: React.FC<{
 					<FontAwesomeIcon icon={faX} />
 				</span>
 			</button>
-		</div>
+		</>
 	);
 };
 
