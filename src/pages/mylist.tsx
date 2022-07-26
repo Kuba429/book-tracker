@@ -1,5 +1,6 @@
 import {
 	Dispatch,
+	FC,
 	SetStateAction,
 	useContext,
 	useEffect,
@@ -45,23 +46,23 @@ export default function List() {
 		</Layout>
 	);
 }
-
-const ReadBooksContainer: React.FC<{
+interface ReadBooksContainerProps {
 	books: Array<readBook>;
 	dispatchBooks: Dispatch<ReadBooksAction>;
 	setModalState: Dispatch<SetStateAction<boolean | readBook>>;
-}> = ({ books, dispatchBooks, setModalState }) => {
+}
+const ReadBooksContainer: FC<ReadBooksContainerProps> = (props) => {
 	const { data, status, error } = useQuery<Array<readBook>, Error>(
 		"read_books",
 		fetchReadBooks
 	);
 	useEffect(() => {
 		data &&
-			dispatchBooks({
+			props.dispatchBooks({
 				type: ReadBooksKind.SET_BOOKS,
 				payload: { books: data },
 			});
-	}, [data, dispatchBooks]);
+	}, [data, props.dispatchBooks]);
 	switch (status) {
 		case "loading":
 			return (
@@ -76,10 +77,51 @@ const ReadBooksContainer: React.FC<{
 				</h2>
 			);
 		default:
-			if (books.length > 0) {
+			if (props.books.length > 0) {
+				return <ContainerOnSuccess {...props} />;
+			} else {
 				return (
+					<p className="w-full text-center text-dark-800 dark:text-white">
+						You haven't added any books yet. Any books you decide to
+						add will appear here!
+					</p>
+				);
+			}
+	}
+};
+
+const ContainerOnSuccess: FC<ReadBooksContainerProps> = ({
+	books,
+	setModalState,
+	dispatchBooks,
+}) => {
+	const finished: readBook[] = [];
+	const unfinished: readBook[] = [];
+	books.forEach((b) => {
+		if (b.last_read_page >= b.books.pages) finished.push(b);
+		else unfinished.push(b);
+	});
+	return (
+		<>
+			<div className="grid lg:grid-cols-3 grid-cols-1 sm:grid-cols-2 gap-2">
+				{unfinished.map((b) => {
+					return (
+						<ReadBook
+							readBook={b}
+							setModalState={setModalState}
+							dispatchBooks={dispatchBooks}
+							key={b.id}
+						/>
+					);
+				})}
+			</div>
+			{finished.length > 0 && (
+				<>
+					<h2 className="text-dimmed-always text-xl mt-2">
+						Finished
+					</h2>
 					<div className="grid lg:grid-cols-3 grid-cols-1 sm:grid-cols-2 gap-2">
-						{books.map((b) => {
+						{finished.map((b) => {
 							return (
 								<ReadBook
 									readBook={b}
@@ -90,14 +132,8 @@ const ReadBooksContainer: React.FC<{
 							);
 						})}
 					</div>
-				);
-			} else {
-				return (
-					<p className="w-full text-center text-dark-800 dark:text-white">
-						You haven't added any books yet. Any books you decide to
-						add will appear here!
-					</p>
-				);
-			}
-	}
+				</>
+			)}
+		</>
+	);
 };
