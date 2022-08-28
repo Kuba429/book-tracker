@@ -6,7 +6,7 @@ const MyProfile = () => {
 			<header className="page-header">
 				<h1>My Profile</h1>
 			</header>
-			<div>*stuff about this profile*</div>
+			<p className="italic">Work in progress</p>
 		</Layout>
 	);
 };
